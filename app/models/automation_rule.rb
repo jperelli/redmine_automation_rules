@@ -214,6 +214,25 @@ class AutomationRule < (defined?(ApplicationRecord) ? ApplicationRecord : Active
     end
   end
 
+  # Does the event carried by +context+ (see Events::IssueEvent) satisfy the
+  # "restrict to" sub-option of an "issue updated" rule? Other triggers, and
+  # runs without an event (manual, dry run), always match.
+  def matches_event?(context)
+    event = context[:event]
+    return true unless trigger_type == 'issue_updated' && event
+
+    case trigger_option('change')
+    when 'field' then event.changed?(trigger_option('field'))
+    when 'status_to'
+      event.changed?('status_id') && event.new_value('status_id').to_s == trigger_option('status_id').to_s
+    when 'assignee' then event.changed?('assigned_to_id')
+    when 'note' then event.notes?
+    when 'done_ratio_100' then event.changed?('done_ratio') && event.new_value('done_ratio').to_i == 100
+    when 'due_date' then event.changed?('due_date')
+    else true
+    end
+  end
+
   def record_run!(error = nil)
     self.last_run_at = Time.current
     self.last_error = error&.to_s&.truncate(2000)

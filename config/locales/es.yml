@@ -9,6 +9,10 @@ es:
   label_automation_rules_plugin_name: Plugin Automation Rules
   label_automation_rules_credit_by: por
   text_automation_rules_settings_placeholder: La configuración del planificador aparecerá aquí.
+  automation_rules_settings_events: Reglas por eventos
+  automation_rules_settings_events_info: Las reglas disparadas por eventos de peticiones (creada, actualizada, cerrada, reabierta, tiempo registrado) se ejecutan justo después de guardar el cambio, en la misma petición web. No necesitan el planificador.
+  automation_rules_setting_run_actions_async: Ejecutar las acciones de forma asíncrona
+  automation_rules_setting_run_actions_async_info: Ejecuta las reglas por eventos en un hilo en segundo plano para que los correos y webhooks no demoren la petición web. La página que hizo el cambio no mostrará los cambios de la regla hasta recargarla.
 
   field_trigger_type: Disparador
   field_trigger_options: Opciones del disparador

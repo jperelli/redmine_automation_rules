@@ -1,1 +1,11 @@
+<fieldset class="box">
+  <legend><%= l(:automation_rules_settings_events) %></legend>
+  <p class="info"><%= l(:automation_rules_settings_events_info) %></p>
+  <p>
+    <label><%= l(:automation_rules_setting_run_actions_async) %></label>
+    <%= hidden_field_tag 'settings[run_actions_async]', '0', id: nil %>
+    <%= check_box_tag 'settings[run_actions_async]', '1', @settings['run_actions_async'].to_s == '1' %>
+    <em class="info"><%= l(:automation_rules_setting_run_actions_async_info) %></em>
+  </p>
+</fieldset>
 <p class="info"><%= l(:text_automation_rules_settings_placeholder) %></p>

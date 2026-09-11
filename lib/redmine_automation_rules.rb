@@ -9,6 +9,8 @@ module RedmineAutomationRules
   # in development does not stack the patches.
   def self.apply_patches
     Project.include(ProjectPatch) unless Project.include?(ProjectPatch)
+    Issue.prepend(IssuePatch) unless Issue.include?(IssuePatch)
+    TimeEntry.prepend(TimeEntryPatch) unless TimeEntry.include?(TimeEntryPatch)
   end
 end
 
@@ -22,4 +24,5 @@ require_relative 'redmine_automation_rules/conditions'
 require_relative 'redmine_automation_rules/actions'
 require_relative 'redmine_automation_rules/schema'
 require_relative 'redmine_automation_rules/runner'
+require_relative 'redmine_automation_rules/events'
 require_relative 'redmine_automation_rules/project_patch'

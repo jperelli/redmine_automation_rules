@@ -42,6 +42,15 @@ module RedmineAutomationRules
       @dry_run
     end
 
+    # Ends the pending note of +issue+ with "(automation rule: <name>)" unless
+    # the rule has the marker disabled.
+    def self.append_note_marker(issue, rule)
+      journal = issue.current_journal
+      return unless rule && journal && journal.notes.present? && rule.note_marker
+
+      journal.notes = "#{journal.notes.chomp}\n\n_(#{::I18n.t(:automation_rules_note_marker, name: rule.name)})_"
+    end
+
     def run
       result = Result.new(rule: rule, issue: issue, trigger: trigger, dry_run: dry_run?, conditions: [], applied: [],
                           changes: {}, notes: nil, matched: false)
@@ -52,7 +61,7 @@ module RedmineAutomationRules
       result
     rescue StandardError => e
       Rails.logger.error("[automation_rules] rule ##{rule.id} on issue ##{issue.id}: #{e.class}: #{e.message}")
-      result.error = "#{e.class}: #{e.message}"
+      result.error = e.is_a?(ActionError) ? e.message : "#{e.class}: #{e.message}"
       result
     ensure
       rule.record_run!(result&.error) if result&.matched && !dry_run?
@@ -77,11 +86,11 @@ module RedmineAutomationRules
       actions = rule.action_objects
       run_in_transaction do
         prepare_journal
-        actions.each do |action|
-          action.apply(issue, context)
+        actions.each_with_index do |action, index|
+          with_action_position(index) { action.apply(issue, context) }
           result.applied << action.describe
         end
-        append_note_marker
+        self.class.append_note_marker(issue, rule)
         result.changes = issue_changes
         result.notes = issue.current_journal&.notes.presence
         save_issue! if issue_modified?
@@ -89,9 +98,15 @@ module RedmineAutomationRules
       end
       return if dry_run?
 
-      actions.each { |action| action.perform(issue, context) }
+      actions.each_with_index { |action, index| with_action_position(index) { action.perform(issue, context) } }
     rescue Rollback
       issue.reload
+    end
+
+    def with_action_position(index)
+      yield
+    rescue ActionError => e
+      raise ActionError, l(:automation_rules_error_action, position: index + 1, message: e.message)
     end
 
     def run_in_transaction(&)
@@ -101,13 +116,6 @@ module RedmineAutomationRules
     def prepare_journal
       issue.clear_journal if issue.respond_to?(:clear_journal)
       issue.init_journal(rule.author)
-    end
-
-    def append_note_marker
-      journal = issue.current_journal
-      return unless journal && journal.notes.present? && rule.note_marker
-
-      journal.notes = "#{journal.notes.chomp}\n\n_(#{l(:automation_rules_note_marker, name: rule.name)})_"
     end
 
     def issue_changes

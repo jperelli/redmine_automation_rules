@@ -168,6 +168,7 @@
       $params.empty();
       if (!def) { return; }
 
+      values = $.extend({}, values);
       $.each(def.params, function (_, param) {
         if (!self.paramVisible(param, values)) { return; }
         var $widget = self.buildWidget(kind, index, param, values, $row);
@@ -177,6 +178,8 @@
           $params.append($label);
         }
         $params.append($widget);
+        /* Later params may depend on the value a select defaulted to. */
+        $.extend(values, self.rowValues($row));
       });
     },
 

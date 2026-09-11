@@ -15,6 +15,7 @@ class AutomationRule < (defined?(ApplicationRecord) ? ApplicationRecord : Active
   attribute :trigger_options, :json, default: -> { {} }
   attribute :conditions, :json, default: -> { [] }
   attribute :actions, :json, default: -> { [] }
+  attribute :state, :json, default: -> { {} }
 
   acts_as_positioned scope: :project_id
 
@@ -79,6 +80,11 @@ class AutomationRule < (defined?(ApplicationRecord) ? ApplicationRecord : Active
       end
     end
     super(value.is_a?(Hash) ? value.stringify_keys : {})
+  end
+
+  # Runtime state kept by actions (e.g. the round-robin position), never nil.
+  def state
+    super.is_a?(Hash) ? super : {}
   end
 
   def global?
@@ -180,7 +186,7 @@ class AutomationRule < (defined?(ApplicationRecord) ? ApplicationRecord : Active
 
   def copy_from(other)
     self.attributes = other.attributes.except('id', 'position', 'last_run_at', 'next_run_at', 'last_error',
-                                              'runs_count', 'created_on', 'updated_on')
+                                              'runs_count', 'state', 'created_on', 'updated_on')
     self.name = "#{other.name} (#{l(:button_copy).downcase})"
     self
   end

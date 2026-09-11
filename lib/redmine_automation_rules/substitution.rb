@@ -8,7 +8,8 @@ module RedmineAutomationRules
   #   {{issue.spent_hours}} {{issue.url}} {{issue.cf.Field name}} {{issue.Field name}}
   #   {{project.name}} {{project.identifier}} {{user}} {{rule.name}} {{date}} {{time}}
   #
-  # Unknown variables are left in place.
+  # Unknown variables are left in place. Periodic-Task style date macros
+  # (**DAY**, **MONTH+1**, **DATE-7**, ...) are expanded too, see DateMacros.
   module Substitution
     VARIABLE = /\{\{\s*([\w.\- ]+?)\s*\}\}/
 
@@ -20,10 +21,11 @@ module RedmineAutomationRules
     def apply(text, issue, context = {})
       return text if text.blank?
 
-      text.to_s.gsub(VARIABLE) do |match|
+      substituted = text.to_s.gsub(VARIABLE) do |match|
         value = resolve(Regexp.last_match(1), issue, context)
         value.nil? ? match : value.to_s
       end
+      DateMacros.apply(substituted)
     end
 
     def resolve(name, issue, context)
@@ -44,9 +46,7 @@ module RedmineAutomationRules
       case attribute
       when 'url'
         Rails.application.routes.url_helpers.issue_url(issue, Mailer.default_url_options)
-      when 'assigned_to', 'author', 'tracker', 'status', 'priority', 'category', 'fixed_version'
-        issue.public_send(attribute)&.to_s
-      when *ISSUE_ATTRIBUTES
+      when 'assigned_to', 'author', 'tracker', 'status', 'priority', 'category', 'fixed_version', *ISSUE_ATTRIBUTES
         issue.public_send(attribute).to_s
       else
         custom_field_value(issue, attribute.delete_prefix('cf.'))

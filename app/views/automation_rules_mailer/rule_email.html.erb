@@ -1,0 +1,2 @@
+<%= simple_format(h(@body_text)) %>
+<p><%= link_to("#{@issue.tracker} ##{@issue.id}: #{@issue.subject}", @issue_url) %></p>

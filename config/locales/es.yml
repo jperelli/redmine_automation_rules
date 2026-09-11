@@ -222,3 +222,101 @@ es:
   automation_rules_action_add_note: Agregar nota
   automation_rules_action_sentence_set_status: "cambiar el estado a %{status}"
   automation_rules_action_sentence_add_note: "agregar la nota \"%{text}\""
+  automation_rules_action_set_priority: Cambiar prioridad
+  automation_rules_action_set_tracker: Cambiar tipo
+  automation_rules_action_set_category: Cambiar categoría
+  automation_rules_action_set_target_version: Cambiar versión prevista
+  automation_rules_action_set_assignee: Asignar
+  automation_rules_action_set_due_date: Cambiar fecha fin
+  automation_rules_action_set_start_date: Cambiar fecha de inicio
+  automation_rules_action_set_done_ratio: "Cambiar % realizado"
+  automation_rules_action_set_custom_field: Cambiar campo personalizado
+  automation_rules_action_set_private: Cambiar visibilidad privada
+  automation_rules_action_add_watchers: Agregar seguidores
+  automation_rules_action_remove_watchers: Quitar seguidores
+  automation_rules_action_close_issue: Cerrar la petición
+  automation_rules_action_reopen_issue: Reabrir la petición
+  automation_rules_action_create_issue: Crear una petición
+  automation_rules_action_send_email: Enviar un correo
+  automation_rules_action_call_webhook: Llamar a un webhook
+  automation_rules_action_update_parent: Actualizar la petición padre
+  automation_rules_action_sentence_set_priority: "cambiar la prioridad a %{priority}"
+  automation_rules_action_sentence_set_tracker: "cambiar el tipo a %{tracker}"
+  automation_rules_action_sentence_set_category: "cambiar la categoría a %{category}"
+  automation_rules_action_sentence_clear_category: quitar la categoría
+  automation_rules_action_sentence_set_target_version: "cambiar la versión prevista a %{version}"
+  automation_rules_action_sentence_clear_target_version: quitar la versión prevista
+  automation_rules_action_sentence_set_assignee: "asignar a %{assignee}"
+  automation_rules_action_sentence_unassign: desasignar
+  automation_rules_action_sentence_set_date: "cambiar %{field} a %{value}"
+  automation_rules_action_sentence_set_done_ratio: "cambiar el %% realizado a %{ratio}%%"
+  automation_rules_action_sentence_set_custom_field: "cambiar %{field} a \"%{value}\""
+  automation_rules_action_sentence_make_private: hacer privada la petición
+  automation_rules_action_sentence_make_public: hacer pública la petición
+  automation_rules_action_sentence_add_watchers: "agregar %{who} como seguidores"
+  automation_rules_action_sentence_remove_watchers: "quitar %{who} de los seguidores"
+  automation_rules_action_sentence_close_issue: cerrar la petición
+  automation_rules_action_sentence_close_issue_as: "cerrar la petición como %{status}"
+  automation_rules_action_sentence_reopen_issue: reabrir la petición
+  automation_rules_action_sentence_reopen_issue_as: "reabrir la petición como %{status}"
+  automation_rules_action_sentence_create_subtask: "crear la subtarea \"%{subject}\""
+  automation_rules_action_sentence_create_related: "crear la petición \"%{subject}\" que %{relation} esta petición"
+  automation_rules_action_sentence_send_email: "enviar un correo a %{who}"
+  automation_rules_action_sentence_call_webhook: "llamar al webhook %{url}"
+  automation_rules_action_sentence_update_parent: "en la petición padre: %{action}"
+  automation_rules_mode_user: un usuario
+  automation_rules_mode_author: el autor
+  automation_rules_mode_current_user: el usuario actual
+  automation_rules_mode_previous: el asignado anterior
+  automation_rules_mode_round_robin: por turnos en un grupo
+  automation_rules_mode_unassign: nadie
+  automation_rules_mode_date: una fecha
+  automation_rules_mode_today: hoy
+  automation_rules_mode_relative: días desde hoy
+  automation_rules_mode_from_other_date: días desde la otra fecha
+  automation_rules_mode_clear: vacía
+  automation_rules_mode_category: una categoría
+  automation_rules_mode_version: una versión
+  automation_rules_mode_subtask: una subtarea
+  automation_rules_mode_related: una petición relacionada
+  automation_rules_who_none: nadie
+  automation_rules_who_user: un usuario
+  automation_rules_who_author: el autor
+  automation_rules_who_assignee: el asignado
+  automation_rules_who_current_user: el usuario actual
+  automation_rules_who_role: los miembros de un rol
+  automation_rules_who_group: los miembros de un grupo
+  automation_rules_who_watchers: los seguidores
+  automation_rules_who_address: direcciones de correo
+  automation_rules_who_all: todos
+  automation_rules_who_role_members: "los miembros con rol %{role}"
+  automation_rules_who_group_members: "los miembros de %{group}"
+  automation_rules_round_robin_in: "el siguiente miembro de %{group} en el turno"
+  automation_rules_days_from_today:
+    one: "1 día desde hoy"
+    other: "%{count} días desde hoy"
+  automation_rules_days_from_date:
+    one: "1 día después de la %{date}"
+    other: "%{count} días después de la %{date}"
+  automation_rules_only_if_empty: Solo si está vacía
+  automation_rules_shift_to_working_day: Mover al siguiente día laborable
+  automation_rules_closed_status_optional: "Estado cerrado (opcional, por defecto el primero permitido)"
+  automation_rules_open_status_optional: "Estado abierto (opcional, por defecto el del tipo)"
+  automation_rules_webhook_secret: Secreto (opcional)
+  automation_rules_subject_placeholder: "Asunto; {{issue.subject}}, **DATE**..."
+  automation_rules_description_placeholder: Descripción (opcional)
+  automation_rules_custom_field_value_placeholder: "valor; {{issue.author}}, **DATE**, **MONTH**..."
+  automation_rules_addresses_placeholder: "direcciones separadas por comas"
+  automation_rules_email_subject_placeholder: "Asunto; {{issue.subject}}, {{project.name}}..."
+  automation_rules_email_body_placeholder: "Cuerpo; {{issue.url}}, {{issue.due_date}}, {{user}}..."
+  automation_rules_url_placeholder: https://example.com/hook
+  automation_rules_error_invalid_url: la URL debe empezar con http:// o https://
+  automation_rules_error_invalid_date: "fecha inválida '%{value}'"
+  automation_rules_error_record_not_found: "%{type} #%{id} no encontrado"
+  automation_rules_error_user_not_found: usuario no encontrado o inactivo
+  automation_rules_error_not_assignable: "a %{user} no se le pueden asignar peticiones de este proyecto"
+  automation_rules_error_no_rotation_candidates: "a ningún miembro de %{group} se le pueden asignar peticiones de este proyecto"
+  automation_rules_error_tracker_not_in_project: "el tipo %{tracker} no está habilitado en este proyecto"
+  automation_rules_error_version_not_assignable: "la versión #%{id} no está disponible para esta petición"
+  automation_rules_error_no_closed_status: el flujo de trabajo no ofrece ningún estado cerrado para esta petición
+  automation_rules_error_no_open_status: el flujo de trabajo no ofrece ningún estado abierto para esta petición

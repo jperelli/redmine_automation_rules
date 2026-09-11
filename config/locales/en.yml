@@ -222,3 +222,101 @@ en:
   automation_rules_action_add_note: Add note
   automation_rules_action_sentence_set_status: "set status to %{status}"
   automation_rules_action_sentence_add_note: "add note \"%{text}\""
+  automation_rules_action_set_priority: Set priority
+  automation_rules_action_set_tracker: Set tracker
+  automation_rules_action_set_category: Set category
+  automation_rules_action_set_target_version: Set target version
+  automation_rules_action_set_assignee: Set assignee
+  automation_rules_action_set_due_date: Set due date
+  automation_rules_action_set_start_date: Set start date
+  automation_rules_action_set_done_ratio: "Set % done"
+  automation_rules_action_set_custom_field: Set custom field
+  automation_rules_action_set_private: Set private flag
+  automation_rules_action_add_watchers: Add watchers
+  automation_rules_action_remove_watchers: Remove watchers
+  automation_rules_action_close_issue: Close the issue
+  automation_rules_action_reopen_issue: Reopen the issue
+  automation_rules_action_create_issue: Create an issue
+  automation_rules_action_send_email: Send an email
+  automation_rules_action_call_webhook: Call a webhook
+  automation_rules_action_update_parent: Update the parent issue
+  automation_rules_action_sentence_set_priority: "set priority to %{priority}"
+  automation_rules_action_sentence_set_tracker: "set tracker to %{tracker}"
+  automation_rules_action_sentence_set_category: "set category to %{category}"
+  automation_rules_action_sentence_clear_category: clear the category
+  automation_rules_action_sentence_set_target_version: "set target version to %{version}"
+  automation_rules_action_sentence_clear_target_version: clear the target version
+  automation_rules_action_sentence_set_assignee: "assign to %{assignee}"
+  automation_rules_action_sentence_unassign: unassign
+  automation_rules_action_sentence_set_date: "set %{field} to %{value}"
+  automation_rules_action_sentence_set_done_ratio: "set %% done to %{ratio}%%"
+  automation_rules_action_sentence_set_custom_field: "set %{field} to \"%{value}\""
+  automation_rules_action_sentence_make_private: make the issue private
+  automation_rules_action_sentence_make_public: make the issue public
+  automation_rules_action_sentence_add_watchers: "add %{who} as watchers"
+  automation_rules_action_sentence_remove_watchers: "remove %{who} from watchers"
+  automation_rules_action_sentence_close_issue: close the issue
+  automation_rules_action_sentence_close_issue_as: "close the issue as %{status}"
+  automation_rules_action_sentence_reopen_issue: reopen the issue
+  automation_rules_action_sentence_reopen_issue_as: "reopen the issue as %{status}"
+  automation_rules_action_sentence_create_subtask: "create subtask \"%{subject}\""
+  automation_rules_action_sentence_create_related: "create issue \"%{subject}\" that %{relation} this issue"
+  automation_rules_action_sentence_send_email: "send an email to %{who}"
+  automation_rules_action_sentence_call_webhook: "call webhook %{url}"
+  automation_rules_action_sentence_update_parent: "on the parent issue: %{action}"
+  automation_rules_mode_user: a user
+  automation_rules_mode_author: the author
+  automation_rules_mode_current_user: the current user
+  automation_rules_mode_previous: the previous assignee
+  automation_rules_mode_round_robin: round-robin in a group
+  automation_rules_mode_unassign: nobody
+  automation_rules_mode_date: a date
+  automation_rules_mode_today: today
+  automation_rules_mode_relative: days from today
+  automation_rules_mode_from_other_date: days from the other date
+  automation_rules_mode_clear: cleared
+  automation_rules_mode_category: a category
+  automation_rules_mode_version: a version
+  automation_rules_mode_subtask: a subtask
+  automation_rules_mode_related: a related issue
+  automation_rules_who_none: nobody
+  automation_rules_who_user: a user
+  automation_rules_who_author: the author
+  automation_rules_who_assignee: the assignee
+  automation_rules_who_current_user: the current user
+  automation_rules_who_role: members of a role
+  automation_rules_who_group: members of a group
+  automation_rules_who_watchers: the watchers
+  automation_rules_who_address: email addresses
+  automation_rules_who_all: everybody
+  automation_rules_who_role_members: "the %{role} members"
+  automation_rules_who_group_members: "the members of %{group}"
+  automation_rules_round_robin_in: "the next member of %{group} in turn"
+  automation_rules_days_from_today:
+    one: "1 day from today"
+    other: "%{count} days from today"
+  automation_rules_days_from_date:
+    one: "1 day after the %{date}"
+    other: "%{count} days after the %{date}"
+  automation_rules_only_if_empty: Only if empty
+  automation_rules_shift_to_working_day: Move to the next working day
+  automation_rules_closed_status_optional: "Closed status (optional, default: first allowed)"
+  automation_rules_open_status_optional: "Open status (optional, default: tracker default)"
+  automation_rules_webhook_secret: Secret (optional)
+  automation_rules_subject_placeholder: "Subject; {{issue.subject}}, **DATE**..."
+  automation_rules_description_placeholder: Description (optional)
+  automation_rules_custom_field_value_placeholder: "value; {{issue.author}}, **DATE**, **MONTH**..."
+  automation_rules_addresses_placeholder: "addresses separated by commas"
+  automation_rules_email_subject_placeholder: "Subject; {{issue.subject}}, {{project.name}}..."
+  automation_rules_email_body_placeholder: "Body; {{issue.url}}, {{issue.due_date}}, {{user}}..."
+  automation_rules_url_placeholder: https://example.com/hook
+  automation_rules_error_invalid_url: the URL must start with http:// or https://
+  automation_rules_error_invalid_date: "invalid date '%{value}'"
+  automation_rules_error_record_not_found: "%{type} #%{id} not found"
+  automation_rules_error_user_not_found: user not found or not active
+  automation_rules_error_not_assignable: "%{user} cannot be assigned issues of this project"
+  automation_rules_error_no_rotation_candidates: "no member of %{group} can be assigned issues of this project"
+  automation_rules_error_tracker_not_in_project: "tracker %{tracker} is not enabled in this project"
+  automation_rules_error_version_not_assignable: "version #%{id} is not available for this issue"
+  automation_rules_error_no_closed_status: the workflow offers no closed status for this issue
+  automation_rules_error_no_open_status: the workflow offers no open status for this issue

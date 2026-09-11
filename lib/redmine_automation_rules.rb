@@ -14,7 +14,10 @@ end
 
 require_relative 'redmine_automation_rules/hooks'
 require_relative 'redmine_automation_rules/definition'
+require_relative 'redmine_automation_rules/date_macros'
+require_relative 'redmine_automation_rules/working_days'
 require_relative 'redmine_automation_rules/substitution'
+require_relative 'redmine_automation_rules/webhook'
 require_relative 'redmine_automation_rules/conditions'
 require_relative 'redmine_automation_rules/actions'
 require_relative 'redmine_automation_rules/schema'

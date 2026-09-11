@@ -8,4 +8,83 @@
     <em class="info"><%= l(:automation_rules_setting_run_actions_async_info) %></em>
   </p>
 </fieldset>
-<p class="info"><%= l(:text_automation_rules_settings_placeholder) %></p>
+
+<fieldset class="box">
+  <legend><%= l(:automation_rules_settings_scheduler) %></legend>
+  <p class="info"><%= l(:automation_rules_settings_scheduler_info) %></p>
+  <p>
+    <label><%= l(:label_automation_rules_scheduler_mode) %></label>
+    <%= select_tag 'settings[scheduler_mode]',
+                   options_for_select(RedmineAutomationRules::WebScheduler::MODES.map { |m| [l("label_automation_rules_scheduler_mode_#{m}"), m] },
+                                      RedmineAutomationRules::WebScheduler.mode) %>
+    <em class="info"><%= l(:label_automation_rules_scheduler_mode_info) %></em>
+  </p>
+  <p>
+    <label><%= l(:label_automation_rules_web_check_interval) %></label>
+    <%= number_field_tag 'settings[web_check_interval]',
+                         @settings['web_check_interval'].to_i > 0 ? @settings['web_check_interval'].to_i : RedmineAutomationRules::WebScheduler::DEFAULT_INTERVAL_MINUTES,
+                         min: 1, size: 5 %> <%= l(:label_automation_rules_minutes) %>
+    <em class="info"><%= l(:label_automation_rules_web_check_interval_info) %></em>
+  </p>
+  <p>
+    <label><%= l(:label_automation_rules_check_url) %></label>
+    <code><%= url_for(controller: 'automation_rules_sys', action: 'check', only_path: false) %>?key=&lt;<%= l(:setting_sys_api_key) %>&gt;</code>
+    <em class="info"><%= l(:label_automation_rules_check_url_info) %></em>
+  </p>
+</fieldset>
+
+<fieldset class="box">
+  <legend><%= l(:label_automation_rules_runs, count: AutomationRulesRun::KEEP) %></legend>
+  <p>
+    <%= link_to l(:button_automation_rules_run_checker), automation_rules_run_checker_path,
+                method: :post, class: 'icon icon-reload',
+                data: { confirm: l(:text_automation_rules_run_checker_confirm) } %>
+    <em class="info"><%= l(:label_automation_rules_runs_info) %></em>
+  </p>
+  <% runs = AutomationRulesRun.recent.limit(AutomationRulesRun::KEEP).to_a %>
+  <% if runs.empty? %>
+    <p class="nodata"><%= l(:label_no_data) %></p>
+  <% else %>
+    <% content_for :header_tags do %>
+      <style>
+        table.automation-rules-runs tr.error td { background-color: #ffe3e3; color: #880000; }
+        table.automation-rules-runs td.error-messages, table.automation-rules-runs td.notes { white-space: pre-line; }
+      </style>
+    <% end %>
+    <table class="list automation-rules-runs">
+      <thead>
+        <tr>
+          <th><%= l(:field_automation_rules_run_started_at) %></th>
+          <th><%= l(:field_automation_rules_run_source) %></th>
+          <th><%= l(:field_automation_rules_run_runs_count) %></th>
+          <th><%= l(:field_automation_rules_run_rules_evaluated) %></th>
+          <th><%= l(:field_automation_rules_run_issues_matched) %></th>
+          <th><%= l(:field_automation_rules_run_actions_applied) %></th>
+          <th><%= l(:field_automation_rules_run_duration) %></th>
+          <th><%= l(:field_automation_rules_run_errors) %></th>
+          <th><%= l(:field_automation_rules_run_notes) %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% runs.each do |run| %>
+          <tr class="<%= cycle('odd', 'even') %> <%= 'error' if run.error_messages.present? %>">
+            <td><%= format_time(run.started_at) %></td>
+            <td><%= l("label_automation_rules_run_source_#{run.source}") %></td>
+            <td>
+              <%= run.runs_count %>
+              <% if run.runs_count > 1 %>
+                <span class="info">(<%= l(:label_automation_rules_run_until, time: format_time(run.last_run_at)) %>)</span>
+              <% end %>
+            </td>
+            <td><%= run.rules_evaluated %></td>
+            <td><%= run.issues_matched %></td>
+            <td><%= run.actions_applied %></td>
+            <td><%= run.duration_ms %> ms</td>
+            <td class="error-messages"><%= run.error_messages %></td>
+            <td class="notes"><%= run.notes %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+</fieldset>

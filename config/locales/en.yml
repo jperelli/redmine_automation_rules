@@ -8,7 +8,41 @@ en:
   permission_view_automation_rules: View automation rules
   label_automation_rules_plugin_name: Automation Rules plugin
   label_automation_rules_credit_by: by
-  text_automation_rules_settings_placeholder: The scheduler settings will appear here.
+  automation_rules_settings_scheduler: Scheduled rules
+  automation_rules_settings_scheduler_info: Rules with the "Scheduled" trigger are evaluated by the checker, which runs from cron, from web requests or from an external scheduler calling the check URL. Event rules do not need it.
+  label_automation_rules_scheduler_mode: Scheduler
+  label_automation_rules_scheduler_mode_cron: Cron / rake task (rake redmine:check_automation_rules)
+  label_automation_rules_scheduler_mode_web: Automatic on web requests (no cron needed)
+  label_automation_rules_scheduler_mode_info: With "Automatic on web requests" due scheduled rules are checked in the background whenever someone uses Redmine, so no cron job is needed. Nothing runs while nobody visits; the rules run on the next visit.
+  label_automation_rules_web_check_interval: Web check interval
+  label_automation_rules_web_check_interval_info: How often, at most, a web request triggers the checker. Only used with "Automatic on web requests".
+  label_automation_rules_minutes: minutes
+  label_automation_rules_check_url: Check URL
+  label_automation_rules_check_url_info: Call this URL from any external scheduler (uptime monitor, CI cron, Windows Task Scheduler...) to run the checker on demand. Requires "Enable WS for repository management" and its API key (Administration > Settings > Repositories).
+  label_automation_rules_runs: Scheduler log (last %{count} runs)
+  label_automation_rules_runs_info: Every run of the checker is recorded here, whatever triggered it (rake/cron, web requests, check URL or this button). Consecutive runs that changed nothing are grouped in a single row.
+  button_automation_rules_run_checker: Run checker now
+  text_automation_rules_run_checker_confirm: Run the scheduled rules checker now? All due scheduled rules will be evaluated and their actions applied.
+  notice_automation_rules_checker_run: "Checker run: %{count} scheduled rule(s) evaluated."
+  field_automation_rules_run_started_at: Started
+  field_automation_rules_run_source: Triggered by
+  field_automation_rules_run_runs_count: Runs
+  field_automation_rules_run_rules_evaluated: Rules due
+  field_automation_rules_run_issues_matched: Issues matched
+  field_automation_rules_run_actions_applied: Actions applied
+  field_automation_rules_run_duration: Duration
+  field_automation_rules_run_errors: Errors
+  field_automation_rules_run_notes: Notes
+  label_automation_rules_run_source_rake: Cron / rake
+  label_automation_rules_run_source_web: Web request
+  label_automation_rules_run_source_endpoint: Check URL
+  label_automation_rules_run_source_manual: Manual
+  label_automation_rules_run_until: until %{time}
+  automation_rules_checker_module_disabled: "skipped, the Automation rules module is disabled on project %{project}"
+  automation_rules_checker_issues_matched:
+    zero: no issues matched
+    one: 1 issue matched
+    other: "%{count} issues matched"
   automation_rules_settings_events: Event rules
   automation_rules_settings_events_info: Rules triggered by issue events (created, updated, closed, reopened, time logged) run right after the change is saved, in the request that made it. They do not need the scheduler.
   automation_rules_setting_run_actions_async: Run actions asynchronously

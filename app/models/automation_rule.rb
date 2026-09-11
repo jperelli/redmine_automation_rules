@@ -34,6 +34,7 @@ class AutomationRule < (defined?(ApplicationRecord) ? ApplicationRecord : Active
   scope :global, -> { where(project_id: nil) }
   scope :with_trigger, ->(type) { where(trigger_type: type) }
   scope :scheduled, -> { with_trigger('scheduled') }
+  scope :due_at, ->(now) { where('next_run_at IS NULL OR next_run_at <= ?', now) }
   scope :event, -> { where(trigger_type: EVENT_TRIGGER_TYPES) }
 
   # Rules that apply to issues of +project+: its own rules, rules of ancestors
@@ -240,6 +241,14 @@ class AutomationRule < (defined?(ApplicationRecord) ? ApplicationRecord : Active
     save(validate: false)
   end
 
+  # Closes one scheduled occurrence: the next run is computed from +now+, so
+  # occurrences missed while no checker was running are coalesced into one.
+  def finish_scheduled_run!(now = Time.current)
+    self.last_run_at = now
+    self.next_run_at = compute_next_run(now)
+    save(validate: false)
+  end
+
   private
 
   def normalize_rows(value)
@@ -317,7 +326,8 @@ class AutomationRule < (defined?(ApplicationRecord) ? ApplicationRecord : Active
 
   def compute_next_run_at
     if scheduled?
-      self.next_run_at = compute_next_run if next_run_at.nil? || trigger_options_changed? || last_run_at_changed?
+      recompute = next_run_at.nil? || (!next_run_at_changed? && (trigger_options_changed? || last_run_at_changed?))
+      self.next_run_at = compute_next_run if recompute
     else
       self.next_run_at = nil
     end

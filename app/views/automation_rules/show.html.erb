@@ -1,0 +1,88 @@
+<% html_title l(:label_automation_rules), @rule.name %>
+
+<div class="contextual">
+  <% if @rule.editable? %>
+    <%= automation_rule_toggle_button(@rule) %>
+    <%= link_to automation_rules_sprite_icon('copy', l(:button_copy)), automation_rule_path_for(@rule, :copy),
+                method: :post, class: 'icon icon-copy' %>
+    <%= link_to automation_rules_sprite_icon('edit', l(:button_edit)), automation_rule_path_for(@rule, :edit),
+                class: 'icon icon-edit' %>
+    <% if @rule.scheduled? %>
+      <%= link_to automation_rules_sprite_icon('reload', l(:automation_rules_button_run_now)), automation_rule_path_for(@rule, :run_now),
+                  method: :post, data: { confirm: l(:automation_rules_confirm_run_now) }, class: 'icon icon-reload' %>
+    <% end %>
+    <%= link_to automation_rules_sprite_icon('del', l(:button_delete)), automation_rule_path_for(@rule),
+                method: :delete, data: { confirm: l(:text_are_you_sure) }, class: 'icon icon-del' %>
+  <% end %>
+</div>
+
+<h2>
+  <%= link_to l(:label_automation_rules), automation_rules_index_path_for(@project) %> &#187;
+  <%= @rule.name %>
+  <%= automation_rule_error_marker(@rule) %>
+</h2>
+
+<div class="box automation-rule-summary">
+  <p class="automation-rule-sentence"><%= @rule.sentence %></p>
+  <% if @rule.description.present? %>
+    <div class="wiki"><%= textilizable @rule, :description %></div>
+  <% end %>
+</div>
+
+<div class="splitcontentleft">
+  <div class="box">
+    <h3><%= l(:automation_rules_field_trigger) %></h3>
+    <p><%= @rule.trigger_sentence %></p>
+
+    <h3><%= l(:automation_rules_conditions) %></h3>
+    <% if @rule.conditions.empty? %>
+      <p class="info"><%= l(:automation_rules_no_conditions) %></p>
+    <% else %>
+      <ul class="automation-rule-rows">
+        <% @rule.conditions.each do |row| %>
+          <li><%= automation_rule_row_description(:condition, row) %></li>
+        <% end %>
+      </ul>
+    <% end %>
+
+    <h3><%= l(:automation_rules_actions) %></h3>
+    <% if @rule.actions.empty? %>
+      <p class="info"><%= l(:automation_rules_no_actions) %></p>
+    <% else %>
+      <ol class="automation-rule-rows">
+        <% @rule.actions.each do |row| %>
+          <li><%= automation_rule_row_description(:action, row) %></li>
+        <% end %>
+      </ol>
+    <% end %>
+  </div>
+</div>
+
+<div class="splitcontentright">
+  <div class="box">
+    <h3><%= l(:label_information_plural) %></h3>
+    <ul>
+      <li><strong><%= l(:automation_rules_field_scope) %>:</strong> <%= automation_rule_scope_label(@rule) %></li>
+      <li><strong><%= l(:field_active) %>:</strong> <%= automation_rule_active_tag(@rule) %></li>
+      <li><strong><%= l(:field_author) %>:</strong> <%= @rule.author ? link_to_user(@rule.author) : '—' %></li>
+      <li><strong><%= l(:automation_rules_field_last_run) %>:</strong> <%= automation_rule_last_run(@rule) %></li>
+      <li><strong><%= l(:automation_rules_field_runs_count) %>:</strong> <%= @rule.runs_count %></li>
+      <% if @rule.scheduled? %>
+        <li><strong><%= l(:automation_rules_field_next_run) %>:</strong> <%= @rule.next_run_at ? format_time(@rule.next_run_at) : '—' %></li>
+      <% end %>
+      <li><strong><%= l(:field_note_marker) %>:</strong> <%= @rule.note_marker ? l(:general_text_Yes) : l(:general_text_No) %></li>
+      <li><strong><%= l(:field_created_on) %>:</strong> <%= format_time(@rule.created_on) %></li>
+      <li><strong><%= l(:field_updated_on) %>:</strong> <%= format_time(@rule.updated_on) %></li>
+    </ul>
+    <% if @rule.last_error.present? %>
+      <div class="flash error automation-rule-last-error"><%= @rule.last_error %></div>
+    <% end %>
+  </div>
+
+  <div class="box">
+    <h3><%= l(:automation_rules_button_test) %></h3>
+    <%= render partial: 'automation_rules/test_form' %>
+  </div>
+</div>
+
+<%= render partial: 'automation_rules/credit' %>

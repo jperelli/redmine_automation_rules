@@ -1,0 +1,11 @@
+api.run do
+  api.rule_id @rule.id
+  api.evaluated @results.size
+  api.matched @results.count(&:matched?)
+  api.errors @results.count { |r| r.error.present? }
+  api.array :results do
+    @results.each do |result|
+      render_api_automation_result(api, result)
+    end
+  end
+end

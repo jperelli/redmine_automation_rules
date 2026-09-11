@@ -4,6 +4,19 @@ module RedmineAutomationRules
   def self.setting(name)
     Setting.plugin_automation_rules[name]
   end
+
+  # Prepends the model patches. Called from init.rb; idempotent so reloading
+  # in development does not stack the patches.
+  def self.apply_patches
+    Project.include(ProjectPatch) unless Project.include?(ProjectPatch)
+  end
 end
 
 require_relative 'redmine_automation_rules/hooks'
+require_relative 'redmine_automation_rules/definition'
+require_relative 'redmine_automation_rules/substitution'
+require_relative 'redmine_automation_rules/conditions'
+require_relative 'redmine_automation_rules/actions'
+require_relative 'redmine_automation_rules/schema'
+require_relative 'redmine_automation_rules/runner'
+require_relative 'redmine_automation_rules/project_patch'

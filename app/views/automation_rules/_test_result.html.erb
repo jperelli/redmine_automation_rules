@@ -1,0 +1,52 @@
+<div class="box automation-rule-test-result">
+  <h3><%= l(:automation_rules_test_result_for, issue: link_to_issue(result.issue)).html_safe %></h3>
+
+  <% if result.error %>
+    <div class="flash error"><%= result.error %></div>
+  <% end %>
+
+  <h4><%= l(:automation_rules_conditions) %></h4>
+  <% if result.conditions.empty? %>
+    <p class="info"><%= l(:automation_rules_no_conditions) %></p>
+  <% else %>
+    <ul class="automation-rule-rows">
+      <% result.conditions.each do |condition| %>
+        <li class="<%= condition[:matched] ? 'matched' : 'not-matched' %>">
+          <span class="automation-rule-check"><%= condition[:matched] ? '✔' : '✘' %></span>
+          <%= condition[:description] %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <p class="automation-rule-verdict <%= result.matched? ? 'matched' : 'not-matched' %>">
+    <strong><%= result.matched? ? l(:automation_rules_test_would_run) : l(:automation_rules_test_would_not_run) %></strong>
+  </p>
+
+  <% if result.matched? %>
+    <h4><%= l(:automation_rules_actions) %></h4>
+    <% if result.applied.empty? %>
+      <p class="info"><%= l(:automation_rules_no_actions) %></p>
+    <% else %>
+      <ol class="automation-rule-rows">
+        <% result.applied.each do |description| %>
+          <li><%= description %></li>
+        <% end %>
+      </ol>
+    <% end %>
+
+    <% if result.changes.present? || result.notes.present? %>
+      <h4><%= l(:automation_rules_test_changes) %></h4>
+      <ul class="automation-rule-rows">
+        <% result.changes.each do |field, change| %>
+          <li><%= automation_rule_result_change(field, change) %></li>
+        <% end %>
+        <% if result.notes.present? %>
+          <li><%= l(:field_notes) %>: <%= result.notes %></li>
+        <% end %>
+      </ul>
+    <% elsif result.error.nil? %>
+      <p class="info"><%= l(:automation_rules_test_no_changes) %></p>
+    <% end %>
+  <% end %>
+</div>

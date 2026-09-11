@@ -1,7 +1,17 @@
+<% html_title l(:label_automation_rules) %>
+
+<div class="contextual">
+  <%= link_to automation_rules_sprite_icon('add', l(:automation_rules_new_global_rule)), new_automation_rule_path, class: 'icon icon-add' %>
+  <%= link_to automation_rules_sprite_icon('settings', l(:label_settings)), plugin_settings_path('automation_rules'), class: 'icon icon-settings' %>
+</div>
+
 <h2><%= l(:label_automation_rules) %></h2>
 
-<% if @rules.empty? %>
-  <p class="nodata"><%= l(:label_no_automation_rules) %></p>
-<% end %>
+<h3><%= l(:automation_rules_global_rules) %></h3>
+<p class="info"><%= l(:automation_rules_global_rules_info) %></p>
+<%= render partial: 'automation_rules/list', locals: { rules: @global_rules, sortable: true, empty_message: l(:automation_rules_no_global_rules) } %>
+
+<h3><%= l(:automation_rules_project_rules) %></h3>
+<%= render partial: 'automation_rules/list', locals: { rules: @project_rules, sortable: false, empty_message: l(:label_no_automation_rules), show_scope: true } %>
 
 <%= render partial: 'automation_rules/credit' %>

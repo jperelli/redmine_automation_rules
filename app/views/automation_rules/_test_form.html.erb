@@ -1,0 +1,6 @@
+<p class="info"><%= l(:automation_rules_test_info) %></p>
+<%= form_tag automation_rule_path_for(@rule, :test), method: :get, class: 'automation-rule-test-form' do %>
+  <label for="test_issue_id"><%= l(:label_issue) %> #</label>
+  <%= text_field_tag :issue_id, params[:issue_id], id: 'test_issue_id', size: 8 %>
+  <%= submit_tag l(:automation_rules_button_test), name: nil %>
+<% end %>

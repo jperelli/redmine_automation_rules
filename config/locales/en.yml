@@ -9,3 +9,139 @@ en:
   label_automation_rules_plugin_name: Automation Rules plugin
   label_automation_rules_credit_by: by
   text_automation_rules_settings_placeholder: The scheduler settings will appear here.
+
+  field_trigger_type: Trigger
+  field_trigger_options: Trigger options
+  field_apply_to_subprojects: Apply to subprojects
+  field_note_marker: Mark notes added by this rule
+
+  automation_rules_new_rule: New rule
+  automation_rules_new_global_rule: New global rule
+  automation_rules_global_rules: Global rules
+  automation_rules_global_rules_info: Global rules apply to issues of every project where the Automation rules module is enabled. Only administrators can manage them.
+  automation_rules_no_global_rules: No global rules.
+  automation_rules_project_rules: Project rules
+  automation_rules_inherited_rules: Rules inherited from parent projects and global rules
+  automation_rules_inherited_rules_info: These rules also apply to this project's issues; edit them in their own project or in the administration.
+  automation_rules_scope_global: All projects
+  automation_rules_scope_project_and_subprojects: "%{project} and subprojects"
+
+  automation_rules_field_sentence: Rule
+  automation_rules_field_trigger: Trigger
+  automation_rules_field_scope: Applies to
+  automation_rules_field_last_run: Last run
+  automation_rules_field_next_run: Next check
+  automation_rules_field_runs_count: Runs
+  automation_rules_field_note_marker_info: "Notes added by the rule end with %{marker}"
+  automation_rules_field_update_change: Restrict to
+  automation_rules_field_every: Every
+  automation_rules_field_at_time: at
+  automation_rules_never_run: never
+  automation_rules_runs_count: "%{count} runs"
+  automation_rules_label_error: "!"
+  automation_rules_unknown_type: "unknown type: %{type}"
+
+  automation_rules_when: When
+  automation_rules_if: If
+  automation_rules_then: Then
+  automation_rules_conditions: Conditions
+  automation_rules_actions: Actions
+  automation_rules_conditions_info: All conditions must match. Without conditions, the rule applies to every issue that fires the trigger.
+  automation_rules_actions_info: Actions run in order, as the rule author, and respect workflows and permissions.
+  automation_rules_add_condition: Add condition
+  automation_rules_add_action: Add action
+  automation_rules_no_conditions: No conditions — applies to every issue.
+  automation_rules_no_actions: No actions.
+  automation_rules_scheduled_info: Scheduled rules are evaluated by the scheduler (see the plugin settings) against the open issues the rule applies to. Event rules do not need the scheduler.
+
+  automation_rules_button_enable: Enable
+  automation_rules_button_disable: Disable
+  automation_rules_button_run_now: Run now
+  automation_rules_button_test: Test on issue
+  automation_rules_confirm_run_now: Run this rule now against all the issues it applies to?
+  automation_rules_button_run_on_issue: "Run for real on #%{id}"
+  automation_rules_confirm_run_on_issue: "Apply this rule's actions to issue #%{id} now? This will modify the issue."
+  automation_rules_notice_run_now: "Rule evaluated on %{evaluated} issues: %{matched} matched, %{errors} errors."
+  automation_rules_test_info: Dry run — shows which conditions match and what the actions would change, without saving anything.
+  automation_rules_test_result_for: "Result for %{issue}"
+  automation_rules_test_would_run: All conditions match — the actions would run.
+  automation_rules_test_would_not_run: Not all conditions match — the rule would not run.
+  automation_rules_test_changes: Changes that would be saved
+  automation_rules_test_no_changes: The actions would not change the issue.
+  automation_rules_note_marker: "automation rule: %{name}"
+  automation_rules_note_placeholder: "Note text; {{issue.subject}}, {{issue.assigned_to}}, {{user}}, {{rule.name}}..."
+
+  automation_rules_trigger_issue_created: Issue created
+  automation_rules_trigger_issue_updated: Issue updated
+  automation_rules_trigger_issue_closed: Issue closed
+  automation_rules_trigger_issue_reopened: Issue reopened
+  automation_rules_trigger_time_entry_logged: Time logged on an issue
+  automation_rules_trigger_scheduled: Scheduled
+  automation_rules_trigger_sentence_issue_created: When an issue is created
+  automation_rules_trigger_sentence_issue_updated: When an issue is updated
+  automation_rules_trigger_sentence_issue_updated_field: "When %{field} changes"
+  automation_rules_trigger_sentence_issue_updated_status_to: "When status changes to %{status}"
+  automation_rules_trigger_sentence_issue_updated_assignee: When the assignee changes
+  automation_rules_trigger_sentence_issue_updated_note: When a note is added
+  automation_rules_trigger_sentence_issue_updated_done_ratio_100: When % done reaches 100
+  automation_rules_trigger_sentence_issue_updated_due_date: When the due date changes
+  automation_rules_trigger_sentence_issue_closed: When an issue is closed
+  automation_rules_trigger_sentence_issue_reopened: When an issue is reopened
+  automation_rules_trigger_sentence_time_entry_logged: When time is logged on an issue
+  automation_rules_trigger_sentence_scheduled: "%{every}, for open issues"
+  automation_rules_update_change_any: Any change
+  automation_rules_update_change_field: Field changed
+  automation_rules_update_change_status_to: Status changed to
+  automation_rules_update_change_assignee: Assignee changed
+  automation_rules_update_change_note: Note added
+  automation_rules_update_change_done_ratio_100: "% done reached 100"
+  automation_rules_update_change_due_date: Due date changed
+  automation_rules_interval_unit_minute: minutes
+  automation_rules_interval_unit_hour: hours
+  automation_rules_interval_unit_day: days
+  automation_rules_interval_unit_week: weeks
+  automation_rules_interval_every_minute:
+    one: Every minute
+    other: "Every %{count} minutes"
+  automation_rules_interval_every_hour:
+    one: Every hour
+    other: "Every %{count} hours"
+  automation_rules_interval_every_day:
+    one: Every day
+    other: "Every %{count} days"
+  automation_rules_interval_every_week:
+    one: Every week
+    other: "Every %{count} weeks"
+  automation_rules_interval_at: "at %{time}"
+
+  automation_rules_sentence_if: "if %{conditions}"
+  automation_rules_sentence_then: "then %{actions}"
+  automation_rules_sentence_no_action: do nothing
+
+  automation_rules_error_unknown_condition: "Condition %{position}: unknown type '%{type}'"
+  automation_rules_error_unknown_action: "Action %{position}: unknown type '%{type}'"
+  automation_rules_error_condition: "Condition %{position}: %{message}"
+  automation_rules_error_action: "Action %{position}: %{message}"
+  automation_rules_error_param_blank: "%{param} cannot be blank"
+  automation_rules_error_condition_failed: "condition '%{condition}' failed: %{message}"
+  automation_rules_error_issue_required: An issue number is required.
+  automation_rules_error_issue_not_found: "Issue #%{id} not found."
+  automation_rules_error_issue_not_in_scope: "Issue #%{id} is not in a project this rule applies to."
+  automation_rules_error_status_not_found: "status #%{id} not found"
+  automation_rules_error_status_not_allowed: "the workflow does not allow %{user} to set status %{status}"
+
+  automation_rules_operator_is: is
+  automation_rules_operator_is_not: is not
+  automation_rules_operator_is_closed: is closed
+  automation_rules_operator_is_open: is open
+  automation_rules_operator_is_at_least: is at least
+  automation_rules_operator_is_at_most: is at most
+
+  automation_rules_condition_tracker: Tracker
+  automation_rules_condition_status: Status
+  automation_rules_condition_priority: Priority
+
+  automation_rules_action_set_status: Set status
+  automation_rules_action_add_note: Add note
+  automation_rules_action_sentence_set_status: "set status to %{status}"
+  automation_rules_action_sentence_add_note: "add note \"%{text}\""

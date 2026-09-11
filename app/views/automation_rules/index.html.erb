@@ -1,7 +1,24 @@
-<h2><%= l(:label_automation_rules) %></h2>
+<% title = @project ? l(:label_automation_rules) : l(:automation_rules_global_rules) %>
+<% html_title title %>
 
-<% if @rules.empty? %>
-  <p class="nodata"><%= l(:label_no_automation_rules) %></p>
+<div class="contextual">
+  <% if @project ? User.current.allowed_to?(:manage_automation_rules, @project) : User.current.admin? %>
+    <%= link_to automation_rules_sprite_icon('add', l(:automation_rules_new_rule)),
+                polymorphic_path([:new, @project, :automation_rule]), class: 'icon icon-add' %>
+  <% end %>
+</div>
+
+<h2><%= title %></h2>
+<% unless @project %>
+  <p class="info"><%= l(:automation_rules_global_rules_info) %></p>
+<% end %>
+
+<%= render partial: 'automation_rules/list', locals: { rules: @rules, sortable: true, empty_message: l(:label_no_automation_rules) } %>
+
+<% if @inherited_rules.any? %>
+  <h3><%= l(:automation_rules_inherited_rules) %></h3>
+  <p class="info"><%= l(:automation_rules_inherited_rules_info) %></p>
+  <%= render partial: 'automation_rules/list', locals: { rules: @inherited_rules, sortable: false, empty_message: nil, show_scope: true } %>
 <% end %>
 
 <%= render partial: 'automation_rules/credit' %>

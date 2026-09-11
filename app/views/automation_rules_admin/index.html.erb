@@ -1,0 +1,7 @@
+<h2><%= l(:label_automation_rules) %></h2>
+
+<% if @rules.empty? %>
+  <p class="nodata"><%= l(:label_no_automation_rules) %></p>
+<% end %>
+
+<%= render partial: 'automation_rules/credit' %>

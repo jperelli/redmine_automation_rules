@@ -1,0 +1,23 @@
+# Load the normal Rails helper
+require File.expand_path("#{File.dirname(__FILE__)}/../../../test/test_helper")
+
+module Redmine
+  module PluginFixturesLoader
+    def self.included(base)
+      base.class_eval do
+        def self.plugin_fixtures(*symbols)
+          fixture_klass = ActiveRecord.const_defined?('FixtureSet') ? ActiveRecord::FixtureSet : ActiveRecord::Fixtures
+          fixture_klass.create_fixtures("#{File.dirname(__FILE__)}/fixtures/", symbols)
+        end
+      end
+    end
+  end
+end
+
+unless ActionController::TestCase.included_modules.include?(Redmine::PluginFixturesLoader)
+  ActionController::TestCase.include Redmine::PluginFixturesLoader
+end
+
+unless ActiveSupport::TestCase.included_modules.include?(Redmine::PluginFixturesLoader)
+  ActiveSupport::TestCase.include Redmine::PluginFixturesLoader
+end

@@ -1,0 +1,42 @@
+name: Test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.4'
+
+      - name: Install RuboCop
+        run: gem install rubocop -v 1.81.1 --no-document
+
+      - name: Run RuboCop
+        run: rubocop
+
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        redmine-tag:
+          - '5.1-bookworm'
+          - '6.0-bookworm'
+          - '6.1-bookworm'
+          - '7.0-bookworm'
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Build test image
+        run: docker build -f Dockerfile.test --build-arg REDMINE_TAG=${{ matrix.redmine-tag }} -t automation-rules-test .
+
+      - name: Run plugin tests
+        run: docker run --rm automation-rules-test

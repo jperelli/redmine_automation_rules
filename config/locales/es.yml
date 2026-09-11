@@ -1,0 +1,11 @@
+# Spanish strings go here for Rails i18n
+es:
+  label_automation_rules: Reglas de automatización
+  label_automation_rules_menu: Automatización
+  label_no_automation_rules: Todavía no hay reglas de automatización — creá una para empezar.
+  project_module_automation_rules: Reglas de automatización
+  permission_manage_automation_rules: Administrar reglas de automatización
+  permission_view_automation_rules: Ver reglas de automatización
+  label_automation_rules_plugin_name: Plugin Automation Rules
+  label_automation_rules_credit_by: por
+  text_automation_rules_settings_placeholder: La configuración del planificador aparecerá aquí.

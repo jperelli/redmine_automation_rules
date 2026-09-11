@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <!-- Automation Rules: a trigger node (lightning bolt) wired to an action node (check mark) -->
+  <rect x="18" y="90" width="92" height="88" rx="18" fill="#8a0000"/>
+  <rect x="12" y="84" width="92" height="88" rx="18" fill="#c00000"/>
+  <polygon points="66,100 40,138 57,138 50,166 78,124 62,124 71,100" fill="#fff"/>
+
+  <rect x="106" y="122" width="34" height="12" fill="#8a0000"/>
+  <polygon points="136,110 160,128 136,146" fill="#8a0000"/>
+
+  <rect x="158" y="90" width="92" height="88" rx="18" fill="#8a0000"/>
+  <rect x="152" y="84" width="92" height="88" rx="18" fill="#c00000"/>
+  <path d="M176 130 L194 148 L222 112" fill="none" stroke="#fff" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

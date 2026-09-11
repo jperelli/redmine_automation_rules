@@ -1,0 +1,11 @@
+# English strings go here for Rails i18n
+en:
+  label_automation_rules: Automation rules
+  label_automation_rules_menu: Automation
+  label_no_automation_rules: No automation rules yet — create one to get started.
+  project_module_automation_rules: Automation rules
+  permission_manage_automation_rules: Manage automation rules
+  permission_view_automation_rules: View automation rules
+  label_automation_rules_plugin_name: Automation Rules plugin
+  label_automation_rules_credit_by: by
+  text_automation_rules_settings_placeholder: The scheduler settings will appear here.

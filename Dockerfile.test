@@ -1,0 +1,23 @@
+ARG REDMINE_TAG=7.0-bookworm
+FROM redmine:${REDMINE_TAG}
+
+# Configure sqlite for test environment
+RUN printf "test:\n  adapter: sqlite3\n  database: /usr/src/redmine/sqlite/test.db\n" \
+    > /usr/src/redmine/config/database.yml
+RUN mkdir -p /usr/src/redmine/sqlite
+
+RUN apt-get update && apt-get install -y gcc make && rm -rf /var/lib/apt/lists/*
+
+ENV BUNDLE_WITH=test
+RUN bundle install
+
+# Prepare core test database (before the plugin is copied so the layer is cached)
+RUN bundle exec rake db:migrate RAILS_ENV=test
+
+# Copy plugin
+COPY . /usr/src/redmine/plugins/automation_rules/
+
+RUN bundle exec rake redmine:plugins:migrate NAME=automation_rules RAILS_ENV=test
+
+ENTRYPOINT [""]
+CMD ["bundle", "exec", "rake", "redmine:plugins:test", "NAME=automation_rules", "RAILS_ENV=test"]

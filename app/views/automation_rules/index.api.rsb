@@ -1,0 +1,8 @@
+api.array :automation_rules do
+  @rules.each do |rule|
+    api.automation_rule do
+      api.id rule.id
+      api.name rule.name
+    end
+  end
+end

@@ -81,11 +81,89 @@ module RedmineAutomationRules
         value.to_s
       end
 
+      def validate
+        errors = super
+        errors << l(:automation_rules_error_invalid_regexp, message: regexp_error) if regexp_error
+        errors
+      end
+
       private
+
+      def regexp_error
+        return nil unless operator.in?(%w[matches not_matches]) && param?('value')
+
+        Regexp.new(value.to_s)
+        nil
+      rescue RegexpError => e
+        e.message
+      end
 
       # Applies an equality operator (is / is_not) to the given comparison.
       def apply_negation(result)
         operator.to_s.end_with?('_not') || operator.to_s.start_with?('not_') ? !result : result
+      end
+
+      # The user who caused the event (before the runner switched to the rule
+      # author), falling back to the author for scheduled and manual runs.
+      def actor(context)
+        context[:actor].presence || context[:user] || User.current
+      end
+
+      def today
+        User.current.today
+      end
+
+      def days
+        param('days').to_i
+      end
+
+      # Compares +actual+ with +expected+ using a numeric operator name.
+      def compares?(actual, expected, oper = operator)
+        return false if actual.nil? || expected.nil?
+
+        case oper
+        when 'eq', 'is' then actual == expected
+        when 'is_not' then actual != expected
+        when 'gt' then actual > expected
+        when 'gte' then actual >= expected
+        when 'lt' then actual < expected
+        when 'lte' then actual <= expected
+        else false
+        end
+      end
+
+      def text_matches?(text, oper = operator, pattern = value.to_s)
+        text = text.to_s
+        case oper
+        when 'contains' then text.downcase.include?(pattern.downcase)
+        when 'not_contains' then !text.downcase.include?(pattern.downcase)
+        when 'starts_with' then text.downcase.start_with?(pattern.downcase)
+        when 'is' then text.strip.casecmp?(pattern.strip)
+        when 'is_not' then !text.strip.casecmp?(pattern.strip)
+        when 'matches' then Regexp.new(pattern, Regexp::IGNORECASE).match?(text)
+        when 'not_matches' then !Regexp.new(pattern, Regexp::IGNORECASE).match?(text)
+        else false
+        end
+      end
+
+      # Date operators shared by due/start date and date custom fields.
+      def date_matches?(date, oper = operator)
+        case oper
+        when 'is_empty' then date.nil?
+        when 'is_set' then !date.nil?
+        when 'is_past' then date.present? && date < today
+        when 'is_today' then date == today
+        when 'within_days' then date.present? && date >= today && date <= today + days
+        when 'more_than_days_ago' then date.present? && date < today - days
+        when 'more_than_days_ahead' then date.present? && date > today + days
+        else false
+        end
+      end
+
+      def group_includes?(user, group_id)
+        return false unless user.is_a?(::User)
+
+        user.group_ids.include?(group_id.to_i)
       end
     end
   end

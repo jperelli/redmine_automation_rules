@@ -136,10 +136,87 @@ en:
   automation_rules_operator_is_open: is open
   automation_rules_operator_is_at_least: is at least
   automation_rules_operator_is_at_most: is at most
+  automation_rules_operator_is_nobody: is nobody
+  automation_rules_operator_is_anybody: is somebody
+  automation_rules_operator_is_author: is the author
+  automation_rules_operator_is_current_user: is the current user
+  automation_rules_operator_is_assignee: is the assignee
+  automation_rules_operator_in_group: is in group
+  automation_rules_operator_not_in_group: is not in group
+  automation_rules_operator_is_empty: is empty
+  automation_rules_operator_is_set: is set
+  automation_rules_operator_eq: "="
+  automation_rules_operator_lt: "<"
+  automation_rules_operator_gt: ">"
+  automation_rules_operator_lte: "<="
+  automation_rules_operator_gte: ">="
+  automation_rules_operator_is_past: is in the past
+  automation_rules_operator_is_today: is today
+  automation_rules_operator_within_days: is within the next
+  automation_rules_operator_more_than_days_ago: is older than
+  automation_rules_operator_more_than_days_ahead: is further ahead than
+  automation_rules_operator_contains: contains
+  automation_rules_operator_not_contains: does not contain
+  automation_rules_operator_starts_with: starts with
+  automation_rules_operator_matches: matches regex
+  automation_rules_operator_not_matches: does not match regex
+  automation_rules_operator_has_parent: has a parent
+  automation_rules_operator_no_parent: has no parent
+  automation_rules_operator_parent_is_closed: parent is closed
+  automation_rules_operator_parent_is_open: parent is open
+  automation_rules_operator_none: none
+  automation_rules_operator_any: any
+  automation_rules_operator_all_closed: are all closed
+  automation_rules_operator_any_open: has any open
+  automation_rules_operator_is_private: is private
+  automation_rules_operator_is_public: is public
+  automation_rules_operator_gt_hours: is more than
+  automation_rules_operator_lt_hours: is less than
+  automation_rules_operator_gt_estimated: exceeds the estimate
+  automation_rules_operator_lte_estimated: is within the estimate
+  automation_rules_operator_more_than_days: more than
+  automation_rules_operator_less_than_days: less than
+  automation_rules_operator_more_than_hours: more than
+  automation_rules_operator_less_than_hours: less than
 
   automation_rules_condition_tracker: Tracker
   automation_rules_condition_status: Status
   automation_rules_condition_priority: Priority
+  automation_rules_condition_assignee: Assignee
+  automation_rules_condition_author: Author
+  automation_rules_condition_category: Category
+  automation_rules_condition_target_version: Target version
+  automation_rules_condition_done_ratio: "% Done"
+  automation_rules_condition_due_date: Due date
+  automation_rules_condition_start_date: Start date
+  automation_rules_condition_subject: Subject
+  automation_rules_condition_description: Description
+  automation_rules_condition_watchers_count: Number of watchers
+  automation_rules_condition_parent: Parent issue
+  automation_rules_condition_subtasks: Subtasks
+  automation_rules_condition_private: Private flag
+  automation_rules_condition_time_spent: Time spent
+  automation_rules_condition_updated_ago: Last updated
+  automation_rules_condition_created_ago: Created
+  automation_rules_condition_custom_field: Custom field
+  automation_rules_placeholder_percent: "%"
+  automation_rules_placeholder_days: days
+  automation_rules_placeholder_hours: hours
+  automation_rules_placeholder_text: text or regular expression
+  automation_rules_n_days:
+    one: 1 day
+    other: "%{count} days"
+  automation_rules_n_hours:
+    one: 1 hour
+    other: "%{count} hours"
+  automation_rules_n_days_ago:
+    one: 1 day ago
+    other: "%{count} days ago"
+  automation_rules_n_hours_ago:
+    one: 1 hour ago
+    other: "%{count} hours ago"
+  automation_rules_error_custom_field_not_found: custom field not found
+  automation_rules_error_invalid_regexp: "invalid regular expression: %{message}"
 
   automation_rules_action_set_status: Set status
   automation_rules_action_add_note: Add note

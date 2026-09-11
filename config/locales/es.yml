@@ -136,10 +136,87 @@ es:
   automation_rules_operator_is_open: está abierto
   automation_rules_operator_is_at_least: es al menos
   automation_rules_operator_is_at_most: es como máximo
+  automation_rules_operator_is_nobody: es nadie
+  automation_rules_operator_is_anybody: es alguien
+  automation_rules_operator_is_author: es el autor
+  automation_rules_operator_is_current_user: es el usuario actual
+  automation_rules_operator_is_assignee: es el asignado
+  automation_rules_operator_in_group: está en el grupo
+  automation_rules_operator_not_in_group: no está en el grupo
+  automation_rules_operator_is_empty: está vacío
+  automation_rules_operator_is_set: tiene valor
+  automation_rules_operator_eq: "="
+  automation_rules_operator_lt: "<"
+  automation_rules_operator_gt: ">"
+  automation_rules_operator_lte: "<="
+  automation_rules_operator_gte: ">="
+  automation_rules_operator_is_past: está en el pasado
+  automation_rules_operator_is_today: es hoy
+  automation_rules_operator_within_days: está dentro de los próximos
+  automation_rules_operator_more_than_days_ago: es anterior a hace
+  automation_rules_operator_more_than_days_ahead: es posterior a dentro de
+  automation_rules_operator_contains: contiene
+  automation_rules_operator_not_contains: no contiene
+  automation_rules_operator_starts_with: empieza con
+  automation_rules_operator_matches: coincide con la regex
+  automation_rules_operator_not_matches: no coincide con la regex
+  automation_rules_operator_has_parent: tiene padre
+  automation_rules_operator_no_parent: no tiene padre
+  automation_rules_operator_parent_is_closed: el padre está cerrado
+  automation_rules_operator_parent_is_open: el padre está abierto
+  automation_rules_operator_none: ninguna
+  automation_rules_operator_any: alguna
+  automation_rules_operator_all_closed: están todas cerradas
+  automation_rules_operator_any_open: tiene alguna abierta
+  automation_rules_operator_is_private: es privada
+  automation_rules_operator_is_public: es pública
+  automation_rules_operator_gt_hours: es más de
+  automation_rules_operator_lt_hours: es menos de
+  automation_rules_operator_gt_estimated: supera lo estimado
+  automation_rules_operator_lte_estimated: está dentro de lo estimado
+  automation_rules_operator_more_than_days: hace más de
+  automation_rules_operator_less_than_days: hace menos de
+  automation_rules_operator_more_than_hours: hace más de
+  automation_rules_operator_less_than_hours: hace menos de
 
   automation_rules_condition_tracker: Tipo
   automation_rules_condition_status: Estado
   automation_rules_condition_priority: Prioridad
+  automation_rules_condition_assignee: Asignado a
+  automation_rules_condition_author: Autor
+  automation_rules_condition_category: Categoría
+  automation_rules_condition_target_version: Versión prevista
+  automation_rules_condition_done_ratio: "% Realizado"
+  automation_rules_condition_due_date: Fecha fin
+  automation_rules_condition_start_date: Fecha de inicio
+  automation_rules_condition_subject: Asunto
+  automation_rules_condition_description: Descripción
+  automation_rules_condition_watchers_count: Cantidad de seguidores
+  automation_rules_condition_parent: Petición padre
+  automation_rules_condition_subtasks: Subtareas
+  automation_rules_condition_private: Marca de privada
+  automation_rules_condition_time_spent: Tiempo dedicado
+  automation_rules_condition_updated_ago: Última actualización
+  automation_rules_condition_created_ago: Creada
+  automation_rules_condition_custom_field: Campo personalizado
+  automation_rules_placeholder_percent: "%"
+  automation_rules_placeholder_days: días
+  automation_rules_placeholder_hours: horas
+  automation_rules_placeholder_text: texto o expresión regular
+  automation_rules_n_days:
+    one: 1 día
+    other: "%{count} días"
+  automation_rules_n_hours:
+    one: 1 hora
+    other: "%{count} horas"
+  automation_rules_n_days_ago:
+    one: 1 día
+    other: "%{count} días"
+  automation_rules_n_hours_ago:
+    one: 1 hora
+    other: "%{count} horas"
+  automation_rules_error_custom_field_not_found: campo personalizado no encontrado
+  automation_rules_error_invalid_regexp: "expresión regular inválida: %{message}"
 
   automation_rules_action_set_status: Cambiar estado
   automation_rules_action_add_note: Agregar nota

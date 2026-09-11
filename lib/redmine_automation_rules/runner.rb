@@ -34,7 +34,8 @@ module RedmineAutomationRules
       @issue = issue
       @trigger = trigger || rule.trigger_type
       @dry_run = dry_run
-      @context = { rule: rule, issue: issue, trigger: @trigger, dry_run: dry_run, user: rule.author }.merge(context)
+      @context = { rule: rule, issue: issue, trigger: @trigger, dry_run: dry_run, user: rule.author,
+                   actor: User.current }.merge(context)
     end
 
     def dry_run?

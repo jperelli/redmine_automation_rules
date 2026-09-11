@@ -8,7 +8,41 @@ es:
   permission_view_automation_rules: Ver reglas de automatización
   label_automation_rules_plugin_name: Plugin Automation Rules
   label_automation_rules_credit_by: por
-  text_automation_rules_settings_placeholder: La configuración del planificador aparecerá aquí.
+  automation_rules_settings_scheduler: Reglas planificadas
+  automation_rules_settings_scheduler_info: Las reglas con el disparador "Planificada" las evalúa el verificador, que se ejecuta desde cron, desde las peticiones web o desde un planificador externo que llama a la URL de verificación. Las reglas por eventos no lo necesitan.
+  label_automation_rules_scheduler_mode: Planificador
+  label_automation_rules_scheduler_mode_cron: Cron / tarea rake (rake redmine:check_automation_rules)
+  label_automation_rules_scheduler_mode_web: Automático en las peticiones web (sin cron)
+  label_automation_rules_scheduler_mode_info: Con "Automático en las peticiones web" las reglas planificadas pendientes se verifican en segundo plano cada vez que alguien usa Redmine, así no hace falta un cron. Mientras nadie visita el sitio no se ejecuta nada; las reglas se ejecutan en la siguiente visita.
+  label_automation_rules_web_check_interval: Intervalo de verificación web
+  label_automation_rules_web_check_interval_info: Con qué frecuencia, como máximo, una petición web dispara el verificador. Solo se usa con "Automático en las peticiones web".
+  label_automation_rules_minutes: minutos
+  label_automation_rules_check_url: URL de verificación
+  label_automation_rules_check_url_info: Llame a esta URL desde cualquier planificador externo (monitor de disponibilidad, cron de CI, Programador de tareas de Windows...) para ejecutar el verificador a demanda. Requiere "Activar WS para la gestión de repositorios" y su clave de API (Administración > Configuración > Repositorios).
+  label_automation_rules_runs: Registro del planificador (últimas %{count} ejecuciones)
+  label_automation_rules_runs_info: Cada ejecución del verificador queda registrada aquí, sea cual sea su origen (rake/cron, peticiones web, URL de verificación o este botón). Las ejecuciones consecutivas que no cambiaron nada se agrupan en una sola fila.
+  button_automation_rules_run_checker: Ejecutar el verificador ahora
+  text_automation_rules_run_checker_confirm: ¿Ejecutar el verificador de reglas planificadas ahora? Se evaluarán todas las reglas planificadas pendientes y se aplicarán sus acciones.
+  notice_automation_rules_checker_run: "Verificador ejecutado: %{count} regla(s) planificada(s) evaluada(s)."
+  field_automation_rules_run_started_at: Inicio
+  field_automation_rules_run_source: Origen
+  field_automation_rules_run_runs_count: Ejecuciones
+  field_automation_rules_run_rules_evaluated: Reglas pendientes
+  field_automation_rules_run_issues_matched: Peticiones coincidentes
+  field_automation_rules_run_actions_applied: Acciones aplicadas
+  field_automation_rules_run_duration: Duración
+  field_automation_rules_run_errors: Errores
+  field_automation_rules_run_notes: Notas
+  label_automation_rules_run_source_rake: Cron / rake
+  label_automation_rules_run_source_web: Petición web
+  label_automation_rules_run_source_endpoint: URL de verificación
+  label_automation_rules_run_source_manual: Manual
+  label_automation_rules_run_until: hasta %{time}
+  automation_rules_checker_module_disabled: "omitida, el módulo Reglas de automatización está desactivado en el proyecto %{project}"
+  automation_rules_checker_issues_matched:
+    zero: ninguna petición coincidió
+    one: 1 petición coincidió
+    other: "%{count} peticiones coincidieron"
   automation_rules_settings_events: Reglas por eventos
   automation_rules_settings_events_info: Las reglas disparadas por eventos de peticiones (creada, actualizada, cerrada, reabierta, tiempo registrado) se ejecutan justo después de guardar el cambio, en la misma petición web. No necesitan el planificador.
   automation_rules_setting_run_actions_async: Ejecutar las acciones de forma asíncrona

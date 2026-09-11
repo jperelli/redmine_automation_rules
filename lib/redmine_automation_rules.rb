@@ -11,6 +11,8 @@ module RedmineAutomationRules
     Project.include(ProjectPatch) unless Project.include?(ProjectPatch)
     Issue.prepend(IssuePatch) unless Issue.include?(IssuePatch)
     TimeEntry.prepend(TimeEntryPatch) unless TimeEntry.include?(TimeEntryPatch)
+    controller = ApplicationController
+    controller.prepend(WebSchedulerControllerPatch) unless controller.include?(WebSchedulerControllerPatch)
   end
 end
 
@@ -25,4 +27,6 @@ require_relative 'redmine_automation_rules/actions'
 require_relative 'redmine_automation_rules/schema'
 require_relative 'redmine_automation_rules/runner'
 require_relative 'redmine_automation_rules/events'
+require_relative 'redmine_automation_rules/web_scheduler'
+require_relative 'automation_rules_checker'
 require_relative 'redmine_automation_rules/project_patch'

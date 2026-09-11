@@ -63,6 +63,27 @@ class AutomationRulesApiTest < Redmine::ApiTest::Base
     json = ActiveSupport::JSON.decode(response.body)['automation_rule']
     assert_equal rule.id, json['id']
     assert_equal({ 'change' => 'status_to', 'status_id' => '5' }, json['trigger_options'])
+    assert_equal [], json['executions']
+  end
+
+  def test_show_includes_the_execution_log
+    rule = create_rule
+    AutomationRulesExecution.create!(automation_rule: rule, issue_id: 1, trigger: 'issue_closed',
+                                     applied: "set status to Closed\nadd note \"Bye\"", created_at: Time.current)
+    AutomationRulesExecution.create!(automation_rule: rule, issue_id: 2, trigger: 'manual', error: 'boom',
+                                     created_at: Time.current)
+
+    get "/projects/ecookbook/automation_rules/#{rule.id}.json", headers: api_headers
+    assert_response :success
+    executions = ActiveSupport::JSON.decode(response.body)['automation_rule']['executions']
+    assert_equal([2, 1], executions.map { |e| e['issue_id'] })
+    assert_equal 'boom', executions.first['error']
+    assert_equal ['set status to Closed', 'add note "Bye"'], executions.last['actions']
+
+    get "/projects/ecookbook/automation_rules/#{rule.id}.xml", headers: api_headers
+    assert_response :success
+    assert_select 'automation_rule executions[type=array] execution', count: 2
+    assert_select 'execution actions[type=array] action', text: 'add note "Bye"'
   end
 
   def test_index_requires_permission

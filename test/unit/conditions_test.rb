@@ -262,6 +262,23 @@ class ConditionsTest < ActiveSupport::TestCase
     assert_equal 'parent issue has a parent', describe(:parent, operator: 'has_parent')
   end
 
+  def test_parent_siblings_closed
+    parent = Issue.find(1)
+    assert_not match?(:parent, parent, operator: 'siblings_closed')
+
+    first = Issue.generate!(project_id: 1, tracker_id: 1, author_id: 2, subject: 'first', parent_issue_id: parent.id)
+    second = Issue.generate!(project_id: 1, tracker_id: 1, author_id: 2, subject: 'second', parent_issue_id: parent.id)
+    assert_not match?(:parent, first.reload, operator: 'siblings_closed'), 'the issue itself is still open'
+
+    first.update_columns(status_id: 5)
+    assert_not match?(:parent, first.reload, operator: 'siblings_closed'), 'a sibling is still open'
+
+    second.update_columns(status_id: 5)
+    assert match?(:parent, first.reload, operator: 'siblings_closed')
+    assert match?(:parent, second.reload, operator: 'siblings_closed')
+    assert_equal 'parent issue exists and all its subtasks are closed', describe(:parent, operator: 'siblings_closed')
+  end
+
   # --- time -----------------------------------------------------------------
 
   def test_time_spent

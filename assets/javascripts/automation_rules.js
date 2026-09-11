@@ -295,4 +295,13 @@
   };
 
   window.AutomationRules.Form = Form;
+
+  // "New rule from recipe" select on the rule list: opens the new-rule form
+  // pre-filled with the chosen recipe.
+  $(document).on('change', '.automation-rule-recipe-select', function () {
+    var key = $(this).val();
+    if (!key) { return; }
+    var url = $(this).data('url');
+    window.location.href = url + (url.indexOf('?') === -1 ? '?' : '&') + 'recipe=' + encodeURIComponent(key);
+  });
 })();

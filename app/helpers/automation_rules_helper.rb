@@ -96,6 +96,7 @@ module AutomationRulesHelper
       api.runs_count rule.runs_count
       api.created_on rule.created_on
       api.updated_on rule.updated_on
+      yield if block_given?
     end
   end
 

@@ -6,6 +6,8 @@ class AutomationRulesController < ApplicationController
 
   accept_api_auth :index, :show, :create, :update, :destroy, :run_now, :test
 
+  EXECUTIONS_SHOWN = 50
+
   helper :automation_rules
   helper :issues
   helper :custom_fields
@@ -26,6 +28,7 @@ class AutomationRulesController < ApplicationController
   end
 
   def show
+    @executions = @rule.executions.recent.includes(:issue).limit(EXECUTIONS_SHOWN).to_a
     respond_to do |format|
       format.html
       format.api
@@ -34,6 +37,10 @@ class AutomationRulesController < ApplicationController
 
   def new
     @rule = rules_scope.new(trigger_type: 'issue_created', author: User.current)
+    return if params[:recipe].blank?
+
+    @recipe = params[:recipe].to_s
+    flash.now[:warning] = l(:automation_rules_error_unknown_recipe) unless @rule.apply_recipe(@recipe, User.current)
   end
 
   def create

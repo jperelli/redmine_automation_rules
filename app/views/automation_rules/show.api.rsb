@@ -1,1 +1,14 @@
-render_api_automation_rule(api, @rule)
+render_api_automation_rule(api, @rule) do
+  api.array :executions do
+    Array(@executions).each do |execution|
+      api.execution do
+        api.id execution.id
+        api.issue_id execution.issue_id
+        api.trigger execution.trigger
+        api.array(:actions) { execution.applied_list.each { |line| api.action line } }
+        api.error execution.error
+        api.created_at execution.created_at
+      end
+    end
+  end
+end

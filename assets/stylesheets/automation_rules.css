@@ -36,3 +36,19 @@ ul.automation-rule-rows, ol.automation-rule-rows { margin: 0.3em 0 0.8em 1.5em; 
 .automation-rule-test-result li.not-matched .automation-rule-check { color: #a00; }
 .automation-rule-verdict.matched { color: #2f6f0f; }
 .automation-rule-verdict.not-matched { color: #a00; }
+
+/* recipes */
+.contextual .automation-rule-recipe-label { margin-left: 1em; }
+.contextual .automation-rule-recipe-select { max-width: 22em; }
+
+/* execution log */
+.automation-rule-executions { clear: both; margin-top: 1em; }
+.automation-rule-executions ol.automation-rule-rows { margin: 0; padding-left: 1.4em; }
+.automation-rule-executions-table td { vertical-align: top; text-align: left; }
+tr.automation-rule-execution-error td { background: #fdf0f0; }
+
+/* issue sidebar */
+ul.automation-rules-sidebar { list-style: none; margin: 0; padding: 0; }
+ul.automation-rules-sidebar li { margin-bottom: 0.2em; }
+ul.automation-rules-sidebar li.automation-rule-execution-error a { color: #a00; }
+.automation-rules-sidebar-time { display: block; color: #777; font-size: 0.9em; }

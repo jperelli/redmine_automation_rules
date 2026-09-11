@@ -31,6 +31,10 @@ class AutomationRulesControllerTest < ActionController::TestCase
       assert_select 'td.active .automation-rule-active'
     end
     assert_select 'a.icon-add', text: I18n.t(:automation_rules_new_rule)
+    assert_select 'select.automation-rule-recipe-select[data-url=?]', '/projects/ecookbook/automation_rules/new' do
+      assert_select 'option', count: RedmineAutomationRules::Recipes.keys.size + 1
+      assert_select 'option[value=auto_close_resolved]', text: I18n.t(:automation_rules_recipe_auto_close_resolved)
+    end
   end
 
   def test_index_shows_empty_message_and_inherited_rules
@@ -89,6 +93,32 @@ class AutomationRulesControllerTest < ActionController::TestCase
     assert_select 'p.automation-rule-sentence', text: /then add note/
     assert_select 'div.automation-rule-last-error', text: 'Something failed'
     assert_select 'a.icon-edit'
+    assert_select 'div.automation-rule-executions p.nodata', text: I18n.t(:automation_rules_no_executions)
+  end
+
+  def test_show_lists_the_execution_log
+    rule = create_rule
+    (1..60).each do |i|
+      AutomationRulesExecution.create!(automation_rule: rule, issue_id: 1, trigger: 'test', applied: "row #{i}",
+                                       created_at: Time.current)
+    end
+    AutomationRulesExecution.create!(automation_rule: rule, issue: Issue.find(1), trigger: 'issue_closed',
+                                     applied: "set status to Closed\nadd note \"Bye\"", created_at: 1.hour.ago)
+    failed = AutomationRulesExecution.create!(automation_rule: rule, issue: Issue.find(2), trigger: 'manual',
+                                              error: 'Status is invalid', created_at: Time.current)
+
+    get :show, params: { project_id: @project.id, id: rule.id }
+    assert_response :success
+    assert_select 'table.automation-rule-executions-table tbody tr', count: AutomationRulesController::EXECUTIONS_SHOWN
+    assert_select 'tr.automation-rule-execution-error' do
+      assert_select 'td a[href=?]', "/issues/#{failed.issue_id}"
+      assert_select 'td', text: I18n.t(:automation_rules_execution_trigger_manual)
+      assert_select 'td span.automation-rule-error', text: 'Status is invalid'
+    end
+    assert_select 'tr.automation-rule-execution-ok ol li', text: 'set status to Closed'
+    assert_select 'tr.automation-rule-execution-ok ol li', text: 'add note "Bye"'
+    assert_select 'tr.automation-rule-execution-ok ol li', text: 'row 60'
+    assert_select 'tr.automation-rule-execution-ok ol li', text: 'row 1', count: 0 # only the newest 50 are shown
   end
 
   def test_show_of_rule_from_another_project_is_not_found
@@ -108,6 +138,24 @@ class AutomationRulesControllerTest < ActionController::TestCase
       assert_select 'div#automation-rule-conditions'
       assert_select 'div#automation-rule-actions'
     end
+  end
+
+  def test_new_from_recipe_prefills_the_form
+    get :new, params: { project_id: @project.id, recipe: 'auto_close_resolved' }
+    assert_response :success
+    assert_select 'p.automation-rule-recipe-info', text: /Auto-close resolved issues after 14 days/
+    assert_select 'input#automation_rule_name[value=?]', I18n.t(:automation_rules_recipe_auto_close_resolved)
+    assert_select 'select#automation_rule_trigger_type option[selected][value=scheduled]'
+    assert_select 'div.automation-rule-fields[data-conditions*=?]', 'updated_ago'
+    assert_select 'div.automation-rule-fields[data-actions*=?]', 'close_issue'
+  end
+
+  def test_new_from_unknown_recipe_warns_and_shows_an_empty_form
+    get :new, params: { project_id: @project.id, recipe: 'nope' }
+    assert_response :success
+    assert_select 'div.flash.warning', text: I18n.t(:automation_rules_error_unknown_recipe)
+    assert_select 'p.automation-rule-recipe-info', count: 0
+    assert_select 'select#automation_rule_trigger_type option[selected][value=issue_created]'
   end
 
   def test_new_requires_manage_permission

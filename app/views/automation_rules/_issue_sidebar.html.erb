@@ -1,0 +1,18 @@
+<% if @issue&.persisted? && @issue.project.module_enabled?(:automation_rules) &&
+      (User.current.allowed_to?(:view_automation_rules, @issue.project) ||
+       User.current.allowed_to?(:manage_automation_rules, @issue.project)) %>
+  <% executions = AutomationRulesExecution.rules_fired_on(@issue).select { |e| e.automation_rule&.visible? } %>
+  <% if executions.any? %>
+    <h3><%= l(:automation_rules_sidebar_title) %></h3>
+    <ul class="automation-rules-sidebar">
+      <% executions.each do |execution| %>
+        <% rule = execution.automation_rule %>
+        <li class="<%= execution.success? ? 'automation-rule-execution-ok' : 'automation-rule-execution-error' %>"
+            title="<%= execution.error.presence || execution.applied_list.join(', ') %>">
+          <%= link_to rule.name, polymorphic_path([rule.project, rule]) %>
+          <span class="automation-rules-sidebar-time"><%= format_time(execution.created_at) %></span>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+<% end %>

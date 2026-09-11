@@ -13,6 +13,13 @@
 
 <% if @result %>
   <%= render partial: 'automation_rules/test_result', locals: { result: @result } %>
+  <% if @result.matched? && @result.error.blank? && @rule.editable? %>
+    <%= form_tag automation_rule_path_for(@rule, :run_now), method: :post, class: 'automation-rule-run-on-issue' do %>
+      <%= hidden_field_tag :issue_id, @result.issue.id %>
+      <%= submit_tag l(:automation_rules_button_run_on_issue, id: @result.issue.id),
+                     data: { confirm: l(:automation_rules_confirm_run_on_issue, id: @result.issue.id) } %>
+    <% end %>
+  <% end %>
 <% end %>
 
 <%= render partial: 'automation_rules/credit' %>

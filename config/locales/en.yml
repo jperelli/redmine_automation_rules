@@ -59,6 +59,8 @@ en:
   automation_rules_button_run_now: Run now
   automation_rules_button_test: Test on issue
   automation_rules_confirm_run_now: Run this rule now against all the issues it applies to?
+  automation_rules_button_run_on_issue: "Run for real on #%{id}"
+  automation_rules_confirm_run_on_issue: "Apply this rule's actions to issue #%{id} now? This will modify the issue."
   automation_rules_notice_run_now: "Rule evaluated on %{evaluated} issues: %{matched} matched, %{errors} errors."
   automation_rules_test_info: Dry run — shows which conditions match and what the actions would change, without saving anything.
   automation_rules_test_result_for: "Result for %{issue}"

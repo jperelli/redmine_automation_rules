@@ -59,6 +59,8 @@ es:
   automation_rules_button_run_now: Ejecutar ahora
   automation_rules_button_test: Probar en petición
   automation_rules_confirm_run_now: ¿Ejecutar esta regla ahora sobre todas las peticiones a las que se aplica?
+  automation_rules_button_run_on_issue: "Ejecutar de verdad en #%{id}"
+  automation_rules_confirm_run_on_issue: "¿Aplicar las acciones de esta regla a la petición #%{id} ahora? Esto modificará la petición."
   automation_rules_notice_run_now: "Regla evaluada en %{evaluated} peticiones: %{matched} coincidieron, %{errors} errores."
   automation_rules_test_info: Simulación — muestra qué condiciones se cumplen y qué cambiarían las acciones, sin guardar nada.
   automation_rules_test_result_for: "Resultado para %{issue}"

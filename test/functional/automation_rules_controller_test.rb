@@ -272,7 +272,21 @@ class AutomationRulesControllerTest < ActionController::TestCase
       assert_select 'ol.automation-rule-rows li', text: /add note/
       assert_select 'li', text: /Closed by rule/
     end
+    assert_select 'form.automation-rule-run-on-issue[action=?]',
+                  "/projects/ecookbook/automation_rules/#{rule.id}/run_now" do
+      assert_select 'input[name=issue_id][value="1"]'
+    end
     assert_equal 0, rule.reload.runs_count
+  end
+
+  def test_test_result_offers_no_real_run_to_viewers
+    rule = create_rule
+    Role.find(2).add_permission!(:view_automation_rules)
+    @request.session[:user_id] = 3
+    get :test, params: { project_id: @project.id, id: rule.id, issue_id: 1 }
+    assert_response :success
+    assert_select 'p.automation-rule-verdict.matched'
+    assert_select 'form.automation-rule-run-on-issue', count: 0
   end
 
   def test_test_on_non_matching_issue
@@ -281,6 +295,7 @@ class AutomationRulesControllerTest < ActionController::TestCase
     assert_response :success
     assert_select 'li.not-matched', text: /tracker is Bug/
     assert_select 'p.automation-rule-verdict.not-matched'
+    assert_select 'form.automation-rule-run-on-issue', count: 0
   end
 
   def test_test_with_issue_outside_scope

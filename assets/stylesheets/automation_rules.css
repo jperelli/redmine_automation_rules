@@ -44,7 +44,7 @@ ul.automation-rule-rows, ol.automation-rule-rows { margin: 0.3em 0 0.8em 1.5em; 
 /* execution log */
 .automation-rule-executions { clear: both; margin-top: 1em; }
 .automation-rule-executions ol.automation-rule-rows { margin: 0; padding-left: 1.4em; }
-.automation-rule-executions-table td { vertical-align: top; }
+.automation-rule-executions-table td { vertical-align: top; text-align: left; }
 tr.automation-rule-execution-error td { background: #fdf0f0; }
 
 /* issue sidebar */

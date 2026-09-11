@@ -25,6 +25,7 @@ class AutomationRule < (defined?(ApplicationRecord) ? ApplicationRecord : Active
   validate :validate_conditions
   validate :validate_actions
 
+  before_validation :prune_trigger_options
   before_save :compute_next_run_at
 
   scope :active, -> { where(active: true) }
@@ -268,6 +269,25 @@ class AutomationRule < (defined?(ApplicationRecord) ? ApplicationRecord : Active
         end
       end
     end
+  end
+
+  # The form submits the inputs of every trigger type; keep only the options
+  # that mean something for the selected one.
+  def prune_trigger_options
+    keys = case trigger_type
+           when 'issue_updated'
+             %w[change] + case trigger_option('change')
+                          when 'field' then %w[field]
+                          when 'status_to' then %w[status_id]
+                          else []
+                          end
+           when 'scheduled'
+             daily = %w[day week].include?(trigger_option('interval_unit').to_s)
+             %w[interval_number interval_unit] + (daily ? %w[time_of_day] : [])
+           else
+             []
+           end
+    self.trigger_options = trigger_options.slice(*keys)
   end
 
   def compute_next_run_at

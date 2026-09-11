@@ -108,6 +108,32 @@ class AutomationRuleTest < ActiveSupport::TestCase
     assert_equal 'status_to', rule.trigger_option(:change)
   end
 
+  def test_trigger_options_of_other_trigger_types_are_dropped_on_save
+    submitted = { 'change' => 'status_to', 'field' => 'due_date', 'status_id' => '5',
+                  'interval_number' => '3', 'interval_unit' => 'hour', 'time_of_day' => '09:00' }
+
+    rule = build_rule(trigger_type: 'issue_updated', trigger_options: submitted)
+    assert rule.save
+    assert_equal({ 'change' => 'status_to', 'status_id' => '5' }, rule.reload.trigger_options)
+
+    rule = build_rule(trigger_type: 'issue_updated', trigger_options: submitted.merge('change' => 'field'))
+    assert rule.save
+    assert_equal({ 'change' => 'field', 'field' => 'due_date' }, rule.reload.trigger_options)
+
+    rule = build_rule(trigger_type: 'scheduled', trigger_options: submitted)
+    assert rule.save
+    assert_equal({ 'interval_number' => '3', 'interval_unit' => 'hour' }, rule.reload.trigger_options)
+
+    rule = build_rule(trigger_type: 'scheduled', trigger_options: submitted.merge('interval_unit' => 'day'))
+    assert rule.save
+    assert_equal({ 'interval_number' => '3', 'interval_unit' => 'day', 'time_of_day' => '09:00' },
+                 rule.reload.trigger_options)
+
+    rule = build_rule(trigger_type: 'issue_closed', trigger_options: submitted)
+    assert rule.save
+    assert_equal({}, rule.reload.trigger_options)
+  end
+
   # --- scope ----------------------------------------------------------------
 
   def test_global_rule_has_no_project_and_applies_everywhere

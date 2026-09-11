@@ -34,6 +34,8 @@ Login: admin / admin at http://localhost:3000/login (Redmine may force a passwor
   `view_automation_rules` or `manage_automation_rules` permission and the module enabled).
 
 ### Scheduler and REST entry points
+- Verify these entry points exist on the branch under test: staged CRUD-only branches may not yet
+  implement scheduler/event execution, recipes, or execution logs. Respect the requested test scope.
 - Event rules (issue created/updated/closed/reopened, time entry logged) fire inline when the issue is saved;
   they do not depend on the scheduler. Scheduled rules do.
 - CLI checker: `docker compose exec redmine bundle exec rake redmine:check_automation_rules RAILS_ENV=development`.
@@ -44,11 +46,17 @@ Login: admin / admin at http://localhost:3000/login (Redmine may force a passwor
 - REST: `/projects/project1/automation_rules.json`, `.../automation_rules/<id>.json`,
   `POST .../automation_rules/<id>/run_now.json`, `POST .../automation_rules/<id>/test.json?issue_id=N`.
   Enable the REST API at `/settings?tab=api` (Integrations tab on 6.1+) and authenticate with an API key.
+- For local admin API smoke tests, retrieve the key without printing it:
+  `ADMIN_API_KEY=$(docker compose exec -T redmine bin/rails runner -e development 'print User.find(1).api_key')`.
+  Retrieve and use it in the same shell invocation; exports may not persist across tool calls.
+  Authenticate curl with `-H "X-Redmine-API-Key: $ADMIN_API_KEY"`, not browser session cookies.
+- For issue-specific manual execution, open *Test on issue*, submit a matching issue, then use
+  *Run for real on #N* and confirm. The button requires an error-free matching result and manage access.
 
 ### Browser evidence and Redmine conventions
 - `init.rb`, `config/locales/*.yml`, `lib/`, helpers and controllers are loaded at boot only. After editing
   them run `docker compose restart redmine` (then wait for HTTP 200). Views and assets reload on the fly.
-- The rule form builds condition/action rows with plain JS from a JSON schema embedded in the page; the
+- The rule form builds condition/action rows with JS from a JSON schema (some branches fetch `/fields`); the
   value widget changes with the selected field and operator. Rows with a blank type are dropped on save.
 - *Run now*, *Toggle* and *Delete* links use native `confirm()` dialogs.
 - Tracker/status/priority names (Bug, New, Normal…) are DB data, not i18n — they stay English regardless of locale.

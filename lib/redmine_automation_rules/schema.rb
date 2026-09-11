@@ -39,7 +39,8 @@ module RedmineAutomationRules
         'role' => pairs(Role.givable.sorted),
         'category' => pairs(project ? project.issue_categories : IssueCategory.none),
         'version' => pairs(project ? project.shared_versions.open : Version.none),
-        'field' => ISSUE_FIELDS.map { |field| [field_label(field), field] },
+        'field' => ISSUE_FIELDS.map { |field| [field_label(field), field] } +
+          custom_field_records(project).map { |cf| [cf.name, "cf_#{cf.id}"] },
         'custom_field' => pairs(custom_field_records(project)),
         'boolean' => [[l(:general_text_Yes), '1'], [l(:general_text_No), '0']],
         'relation_type' => IssueRelation::TYPES.map { |type, opts| [l(opts[:name]), type] }

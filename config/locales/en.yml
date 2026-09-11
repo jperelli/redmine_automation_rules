@@ -9,6 +9,10 @@ en:
   label_automation_rules_plugin_name: Automation Rules plugin
   label_automation_rules_credit_by: by
   text_automation_rules_settings_placeholder: The scheduler settings will appear here.
+  automation_rules_settings_events: Event rules
+  automation_rules_settings_events_info: Rules triggered by issue events (created, updated, closed, reopened, time logged) run right after the change is saved, in the request that made it. They do not need the scheduler.
+  automation_rules_setting_run_actions_async: Run actions asynchronously
+  automation_rules_setting_run_actions_async_info: Run event rules in a background thread so emails and webhooks do not slow down the request. The page that made the change will not show the rule's changes until it is reloaded.
 
   field_trigger_type: Trigger
   field_trigger_options: Trigger options

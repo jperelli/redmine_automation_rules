@@ -9,3 +9,137 @@ es:
   label_automation_rules_plugin_name: Plugin Automation Rules
   label_automation_rules_credit_by: por
   text_automation_rules_settings_placeholder: La configuración del planificador aparecerá aquí.
+
+  field_trigger_type: Disparador
+  field_trigger_options: Opciones del disparador
+  field_apply_to_subprojects: Aplicar a subproyectos
+  field_note_marker: Marcar las notas agregadas por esta regla
+
+  automation_rules_new_rule: Nueva regla
+  automation_rules_new_global_rule: Nueva regla global
+  automation_rules_global_rules: Reglas globales
+  automation_rules_global_rules_info: Las reglas globales se aplican a las peticiones de todos los proyectos que tengan habilitado el módulo Reglas de automatización. Solo los administradores pueden administrarlas.
+  automation_rules_no_global_rules: No hay reglas globales.
+  automation_rules_project_rules: Reglas de proyectos
+  automation_rules_inherited_rules: Reglas heredadas de proyectos padre y reglas globales
+  automation_rules_inherited_rules_info: Estas reglas también se aplican a las peticiones de este proyecto; editalas en su propio proyecto o en la administración.
+  automation_rules_scope_global: Todos los proyectos
+  automation_rules_scope_project_and_subprojects: "%{project} y subproyectos"
+
+  automation_rules_field_sentence: Regla
+  automation_rules_field_trigger: Disparador
+  automation_rules_field_scope: Se aplica a
+  automation_rules_field_last_run: Última ejecución
+  automation_rules_field_next_run: Próxima verificación
+  automation_rules_field_runs_count: Ejecuciones
+  automation_rules_field_note_marker_info: "Las notas agregadas por la regla terminan con %{marker}"
+  automation_rules_field_update_change: Restringir a
+  automation_rules_field_every: Cada
+  automation_rules_field_at_time: a las
+  automation_rules_never_run: nunca
+  automation_rules_runs_count: "%{count} ejecuciones"
+  automation_rules_label_error: "!"
+  automation_rules_unknown_type: "tipo desconocido: %{type}"
+
+  automation_rules_when: Cuando
+  automation_rules_if: Si
+  automation_rules_then: Entonces
+  automation_rules_conditions: Condiciones
+  automation_rules_actions: Acciones
+  automation_rules_conditions_info: Todas las condiciones deben cumplirse. Sin condiciones, la regla se aplica a todas las peticiones que disparen el evento.
+  automation_rules_actions_info: Las acciones se ejecutan en orden, como el autor de la regla, y respetan los flujos de trabajo y permisos.
+  automation_rules_add_condition: Agregar condición
+  automation_rules_add_action: Agregar acción
+  automation_rules_no_conditions: Sin condiciones — se aplica a todas las peticiones.
+  automation_rules_no_actions: Sin acciones.
+  automation_rules_scheduled_info: Las reglas programadas las evalúa el planificador (ver la configuración del plugin) sobre las peticiones abiertas a las que se aplica la regla. Las reglas por evento no necesitan el planificador.
+
+  automation_rules_button_enable: Habilitar
+  automation_rules_button_disable: Deshabilitar
+  automation_rules_button_run_now: Ejecutar ahora
+  automation_rules_button_test: Probar en petición
+  automation_rules_confirm_run_now: ¿Ejecutar esta regla ahora sobre todas las peticiones a las que se aplica?
+  automation_rules_notice_run_now: "Regla evaluada en %{evaluated} peticiones: %{matched} coincidieron, %{errors} errores."
+  automation_rules_test_info: Simulación — muestra qué condiciones se cumplen y qué cambiarían las acciones, sin guardar nada.
+  automation_rules_test_result_for: "Resultado para %{issue}"
+  automation_rules_test_would_run: Todas las condiciones se cumplen — las acciones se ejecutarían.
+  automation_rules_test_would_not_run: No todas las condiciones se cumplen — la regla no se ejecutaría.
+  automation_rules_test_changes: Cambios que se guardarían
+  automation_rules_test_no_changes: Las acciones no cambiarían la petición.
+  automation_rules_note_marker: "regla de automatización: %{name}"
+  automation_rules_note_placeholder: "Texto de la nota; {{issue.subject}}, {{issue.assigned_to}}, {{user}}, {{rule.name}}..."
+
+  automation_rules_trigger_issue_created: Petición creada
+  automation_rules_trigger_issue_updated: Petición actualizada
+  automation_rules_trigger_issue_closed: Petición cerrada
+  automation_rules_trigger_issue_reopened: Petición reabierta
+  automation_rules_trigger_time_entry_logged: Tiempo registrado en una petición
+  automation_rules_trigger_scheduled: Programado
+  automation_rules_trigger_sentence_issue_created: Cuando se crea una petición
+  automation_rules_trigger_sentence_issue_updated: Cuando se actualiza una petición
+  automation_rules_trigger_sentence_issue_updated_field: "Cuando cambia %{field}"
+  automation_rules_trigger_sentence_issue_updated_status_to: "Cuando el estado cambia a %{status}"
+  automation_rules_trigger_sentence_issue_updated_assignee: Cuando cambia el asignado
+  automation_rules_trigger_sentence_issue_updated_note: Cuando se agrega una nota
+  automation_rules_trigger_sentence_issue_updated_done_ratio_100: Cuando el % realizado llega a 100
+  automation_rules_trigger_sentence_issue_updated_due_date: Cuando cambia la fecha fin
+  automation_rules_trigger_sentence_issue_closed: Cuando se cierra una petición
+  automation_rules_trigger_sentence_issue_reopened: Cuando se reabre una petición
+  automation_rules_trigger_sentence_time_entry_logged: Cuando se registra tiempo en una petición
+  automation_rules_trigger_sentence_scheduled: "%{every}, para las peticiones abiertas"
+  automation_rules_update_change_any: Cualquier cambio
+  automation_rules_update_change_field: Cambió un campo
+  automation_rules_update_change_status_to: El estado cambió a
+  automation_rules_update_change_assignee: Cambió el asignado
+  automation_rules_update_change_note: Se agregó una nota
+  automation_rules_update_change_done_ratio_100: "El % realizado llegó a 100"
+  automation_rules_update_change_due_date: Cambió la fecha fin
+  automation_rules_interval_unit_minute: minutos
+  automation_rules_interval_unit_hour: horas
+  automation_rules_interval_unit_day: días
+  automation_rules_interval_unit_week: semanas
+  automation_rules_interval_every_minute:
+    one: Cada minuto
+    other: "Cada %{count} minutos"
+  automation_rules_interval_every_hour:
+    one: Cada hora
+    other: "Cada %{count} horas"
+  automation_rules_interval_every_day:
+    one: Cada día
+    other: "Cada %{count} días"
+  automation_rules_interval_every_week:
+    one: Cada semana
+    other: "Cada %{count} semanas"
+  automation_rules_interval_at: "a las %{time}"
+
+  automation_rules_sentence_if: "si %{conditions}"
+  automation_rules_sentence_then: "entonces %{actions}"
+  automation_rules_sentence_no_action: no hacer nada
+
+  automation_rules_error_unknown_condition: "Condición %{position}: tipo desconocido '%{type}'"
+  automation_rules_error_unknown_action: "Acción %{position}: tipo desconocido '%{type}'"
+  automation_rules_error_condition: "Condición %{position}: %{message}"
+  automation_rules_error_action: "Acción %{position}: %{message}"
+  automation_rules_error_param_blank: "%{param} no puede estar vacío"
+  automation_rules_error_condition_failed: "la condición '%{condition}' falló: %{message}"
+  automation_rules_error_issue_required: Se necesita un número de petición.
+  automation_rules_error_issue_not_found: "No se encontró la petición #%{id}."
+  automation_rules_error_issue_not_in_scope: "La petición #%{id} no está en un proyecto al que se aplique esta regla."
+  automation_rules_error_status_not_found: "no se encontró el estado #%{id}"
+  automation_rules_error_status_not_allowed: "el flujo de trabajo no permite a %{user} poner el estado %{status}"
+
+  automation_rules_operator_is: es
+  automation_rules_operator_is_not: no es
+  automation_rules_operator_is_closed: está cerrado
+  automation_rules_operator_is_open: está abierto
+  automation_rules_operator_is_at_least: es al menos
+  automation_rules_operator_is_at_most: es como máximo
+
+  automation_rules_condition_tracker: Tipo
+  automation_rules_condition_status: Estado
+  automation_rules_condition_priority: Prioridad
+
+  automation_rules_action_set_status: Cambiar estado
+  automation_rules_action_add_note: Agregar nota
+  automation_rules_action_sentence_set_status: "cambiar el estado a %{status}"
+  automation_rules_action_sentence_add_note: "agregar la nota \"%{text}\""

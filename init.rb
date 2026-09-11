@@ -4,6 +4,8 @@ require 'redmine'
 # the patches here and prepending them right away is the whole boot sequence.
 require_relative 'lib/redmine_automation_rules'
 
+RedmineAutomationRules.apply_patches
+
 Redmine::Plugin.register :automation_rules do
   name 'Automation Rules'
   author 'Julian Perelli'

@@ -1,0 +1,56 @@
+<% show_scope = local_assigns.fetch(:show_scope, false) %>
+<% if rules.empty? %>
+  <% if empty_message %><p class="nodata"><%= empty_message %></p><% end %>
+<% else %>
+  <div class="autoscroll">
+  <table class="list automation-rules <%= 'sortable-rules' if sortable %>">
+    <thead>
+      <tr>
+        <th class="name"><%= l(:field_name) %></th>
+        <% if show_scope %><th><%= l(:label_project) %></th><% end %>
+        <th class="sentence"><%= l(:automation_rules_field_sentence) %></th>
+        <th class="active"><%= l(:field_active) %></th>
+        <th class="last-run"><%= l(:automation_rules_field_last_run) %></th>
+        <th class="runs"><%= l(:automation_rules_field_runs_count) %></th>
+        <th class="buttons"></th>
+      </tr>
+    </thead>
+    <tbody>
+    <% rules.each do |rule| %>
+      <tr class="automation-rule <%= 'inactive' unless rule.active %>" id="automation-rule-<%= rule.id %>">
+        <td class="name">
+          <%= link_to rule.name, automation_rule_path_for(rule) %>
+          <%= automation_rule_error_marker(rule) %>
+        </td>
+        <% if show_scope %><td><%= automation_rule_scope_label(rule) %></td><% end %>
+        <td class="sentence"><%= rule.sentence %></td>
+        <td class="active"><%= automation_rule_active_tag(rule) %></td>
+        <td class="last-run"><%= automation_rule_last_run(rule) %></td>
+        <td class="runs"><%= rule.runs_count %></td>
+        <td class="buttons">
+          <% if rule.editable? %>
+            <% if sortable %>
+              <%= reorder_handle(rule, url: automation_rule_path_for(rule), param: 'automation_rule') %>
+            <% end %>
+            <%= automation_rule_toggle_button(rule) %>
+            <%= link_to automation_rules_sprite_icon('copy', l(:button_copy)), automation_rule_path_for(rule, :copy),
+                        method: :post, class: 'icon icon-copy' %>
+            <%= link_to automation_rules_sprite_icon('edit', l(:button_edit)), automation_rule_path_for(rule, :edit),
+                        class: 'icon icon-edit' %>
+            <%= link_to automation_rules_sprite_icon('del', l(:button_delete)), automation_rule_path_for(rule),
+                        method: :delete, data: { confirm: l(:text_are_you_sure) }, class: 'icon icon-del' %>
+          <% end %>
+          <%= link_to automation_rules_sprite_icon('checked', l(:automation_rules_button_test)), automation_rule_path_for(rule, :test),
+                      class: 'icon icon-checked' %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+  </div>
+  <% if sortable %>
+    <%= javascript_tag do %>
+      $(function() { $("table.sortable-rules tbody").positionedItems(); });
+    <% end %>
+  <% end %>
+<% end %>

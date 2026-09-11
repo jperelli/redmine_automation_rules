@@ -1,2 +1,38 @@
 /* Automation Rules plugin */
 .automation-rules-credit { color: #777; }
+
+/* rule list */
+table.automation-rules td.sentence { max-width: 40em; color: #444; }
+table.automation-rules tr.inactive td.name a { color: #999; }
+table.automation-rules td.runs { text-align: right; }
+.automation-rule-state { padding: 0 0.4em; border-radius: 3px; font-size: 0.9em; }
+.automation-rule-active { background: #e3f4d7; color: #2f6f0f; }
+.automation-rule-inactive { background: #eee; color: #777; }
+.automation-rule-error { color: #a00; font-weight: bold; margin-left: 0.3em; cursor: help; }
+.automation-rule-never { color: #999; font-style: italic; }
+.automation-rule-sentence { font-size: 1.1em; margin: 0.3em 0; }
+.automation-rule-last-error { white-space: pre-wrap; }
+ul.automation-rule-rows, ol.automation-rule-rows { margin: 0.3em 0 0.8em 1.5em; }
+
+/* form */
+.automation-rule-form fieldset.box { margin-bottom: 1em; }
+.automation-rule-form fieldset legend { font-weight: bold; }
+.automation-rule-form .automation-rule-trigger-options { display: none; margin-top: 0.5em; }
+.automation-rule-form .automation-rule-change-option { display: none; }
+.automation-rule-form div.automation-rule-rows { margin: 0.5em 0; }
+.automation-rule-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4em; padding: 0.3em 0.4em; margin-bottom: 0.3em;
+  background: #f8f8f8; border: 1px solid #e4e4e4; border-radius: 3px; }
+.automation-rule-row-handle { cursor: move; color: #999; padding: 0 0.3em; font-size: 1.2em; }
+.automation-rule-row select.automation-rule-type { font-weight: bold; }
+.automation-rule-params { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4em; flex: 1; }
+.automation-rule-params textarea { min-width: 24em; }
+.automation-rule-param-label { color: #555; }
+.automation-rule-remove { margin-left: auto; }
+.automation-rule-form .info { color: #666; }
+
+/* dry run */
+.automation-rule-test-form label { margin-right: 0.3em; }
+.automation-rule-test-result li.matched .automation-rule-check { color: #2f6f0f; }
+.automation-rule-test-result li.not-matched .automation-rule-check { color: #a00; }
+.automation-rule-verdict.matched { color: #2f6f0f; }
+.automation-rule-verdict.not-matched { color: #a00; }

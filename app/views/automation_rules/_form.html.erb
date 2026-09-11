@@ -1,0 +1,80 @@
+<%= error_messages_for @rule %>
+
+<div class="box tabular automation-rule-fields"
+     data-fields-url="<%= automation_rules_fields_path_for(@project) %>"
+     data-conditions="<%= @rule.conditions.to_json %>"
+     data-actions="<%= @rule.actions.to_json %>">
+  <p><%= f.text_field :name, required: true, size: 60 %></p>
+  <p><%= f.text_area :description, rows: 3, cols: 60 %></p>
+  <p><%= f.check_box :active %></p>
+  <% if @project %>
+    <p><%= f.check_box :apply_to_subprojects %></p>
+  <% end %>
+  <p>
+    <%= f.check_box :note_marker %>
+    <em class="info"><%= l(:automation_rules_field_note_marker_info, marker: "_(#{l(:automation_rules_note_marker, name: l(:field_name))})_") %></em>
+  </p>
+</div>
+
+<fieldset class="box automation-rule-trigger">
+  <legend><%= l(:automation_rules_when) %></legend>
+  <p>
+    <%= select_tag 'automation_rule[trigger_type]',
+                   options_for_select(AutomationRule.trigger_type_options, @rule.trigger_type),
+                   id: 'automation_rule_trigger_type' %>
+  </p>
+
+  <div class="automation-rule-trigger-options" data-trigger="issue_updated">
+    <p>
+      <label for="trigger_change"><%= l(:automation_rules_field_update_change) %></label>
+      <%= select_tag 'automation_rule[trigger_options][change]',
+                     options_for_select(AutomationRule.update_change_options, @rule.trigger_option('change') || 'any'),
+                     id: 'trigger_change' %>
+      <span class="automation-rule-change-option" data-change="field">
+        <%= select_tag 'automation_rule[trigger_options][field]',
+                       options_for_select(RedmineAutomationRules::Schema.options(@project)['field'], @rule.trigger_option('field')),
+                       id: 'trigger_field' %>
+      </span>
+      <span class="automation-rule-change-option" data-change="status_to">
+        <%= select_tag 'automation_rule[trigger_options][status_id]',
+                       options_for_select(RedmineAutomationRules::Schema.options(@project)['status'], @rule.trigger_option('status_id').to_s),
+                       id: 'trigger_status_id' %>
+      </span>
+    </p>
+  </div>
+
+  <div class="automation-rule-trigger-options" data-trigger="scheduled">
+    <p>
+      <label for="trigger_interval_number"><%= l(:automation_rules_field_every) %></label>
+      <%= number_field_tag 'automation_rule[trigger_options][interval_number]', @rule.trigger_option('interval_number') || 1,
+                           min: 1, id: 'trigger_interval_number', size: 4 %>
+      <%= select_tag 'automation_rule[trigger_options][interval_unit]',
+                     options_for_select(AutomationRule.interval_unit_options, @rule.trigger_option('interval_unit') || 'day'),
+                     id: 'trigger_interval_unit' %>
+      <span class="automation-rule-time-of-day">
+        <label for="trigger_time_of_day"><%= l(:automation_rules_field_at_time) %></label>
+        <%= text_field_tag 'automation_rule[trigger_options][time_of_day]', @rule.trigger_option('time_of_day'),
+                           id: 'trigger_time_of_day', size: 5, placeholder: 'HH:MM' %>
+      </span>
+    </p>
+    <p class="info"><%= l(:automation_rules_scheduled_info) %></p>
+  </div>
+</fieldset>
+
+<fieldset class="box automation-rule-conditions">
+  <legend><%= l(:automation_rules_if) %></legend>
+  <p class="info"><%= l(:automation_rules_conditions_info) %></p>
+  <div class="automation-rule-rows" id="automation-rule-conditions" data-kind="conditions"></div>
+  <p><%= link_to automation_rules_sprite_icon('add', l(:automation_rules_add_condition)), '#', class: 'icon icon-add automation-rule-add', data: { kind: 'conditions' } %></p>
+</fieldset>
+
+<fieldset class="box automation-rule-actions">
+  <legend><%= l(:automation_rules_then) %></legend>
+  <p class="info"><%= l(:automation_rules_actions_info) %></p>
+  <div class="automation-rule-rows" id="automation-rule-actions" data-kind="actions"></div>
+  <p><%= link_to automation_rules_sprite_icon('add', l(:automation_rules_add_action)), '#', class: 'icon icon-add automation-rule-add', data: { kind: 'actions' } %></p>
+</fieldset>
+
+<%= javascript_tag do %>
+  $(function() { AutomationRules.Form.init($('#automation-rule-form')); });
+<% end %>

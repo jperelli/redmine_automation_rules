@@ -1,0 +1,10 @@
+<% html_title l(:label_automation_rules), l(:automation_rules_new_rule) %>
+<h2>
+  <%= link_to l(:label_automation_rules), automation_rules_index_path_for(@project) %> &#187;
+  <%= l(:automation_rules_new_rule) %>
+</h2>
+
+<%= labelled_form_for @rule, url: automation_rules_index_path_for(@project), html: { id: 'automation-rule-form', class: 'automation-rule-form' } do |f| %>
+  <%= render partial: 'automation_rules/form', locals: { f: f } %>
+  <%= submit_tag l(:button_create) %>
+<% end %>

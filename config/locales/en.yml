@@ -358,3 +358,41 @@ en:
   automation_rules_error_version_not_assignable: "version #%{id} is not available for this issue"
   automation_rules_error_no_closed_status: the workflow offers no closed status for this issue
   automation_rules_error_no_open_status: the workflow offers no open status for this issue
+  automation_rules_operator_siblings_closed: exists and all its subtasks are closed
+  automation_rules_new_rule_from_recipe: "New rule from recipe:"
+  automation_rules_recipe_prefilled: "The form was pre-filled with the recipe \"%{recipe}\". Review the values and adjust them to your project before saving."
+  automation_rules_error_unknown_recipe: Unknown recipe.
+  automation_rules_recipe_auto_close_resolved: Auto-close resolved issues after 14 days
+  automation_rules_recipe_auto_close_resolved_description: "Every night, closes issues that have stayed in the resolved status for 14 days, leaving a note."
+  automation_rules_recipe_auto_close_resolved_note: "Closed automatically: this issue has been resolved for 14 days without further feedback."
+  automation_rules_recipe_reopen_on_reporter_note: Reopen a closed issue when its author adds a note
+  automation_rules_recipe_reopen_on_reporter_note_description: "When the person who reported a closed issue comments on it, the issue is reopened so it gets looked at again."
+  automation_rules_recipe_close_parent_when_subtasks_closed: Close the parent when all subtasks are closed
+  automation_rules_recipe_close_parent_when_subtasks_closed_description: "When a subtask is closed and every other subtask of its parent is already closed, the parent is closed too."
+  automation_rules_recipe_round_robin_unassigned: Assign new unassigned issues round-robin among a group
+  automation_rules_recipe_round_robin_unassigned_description: "New issues created without an assignee are handed out in turn to the members of a group."
+  automation_rules_recipe_start_date_on_progress: Set the start date when work starts
+  automation_rules_recipe_start_date_on_progress_description: "When the status changes to In Progress, the start date is set to today if it was empty."
+  automation_rules_recipe_finish_on_close: Set % done and due date when closed
+  automation_rules_recipe_finish_on_close_description: "When an issue is closed, % done becomes 100 and the due date is set to today if it was empty."
+  automation_rules_recipe_escalate_unassigned_high_priority: Escalate unassigned high-priority issues
+  automation_rules_recipe_escalate_unassigned_high_priority_description: "Every hour, high-priority issues created more than 4 hours ago and still unassigned get the managers as watchers and a note."
+  automation_rules_recipe_escalate_unassigned_high_priority_note: "Escalated automatically: this high-priority issue has been unassigned for more than 4 hours."
+  automation_rules_recipe_due_date_reminder: Remind assignees of issues due soon
+  automation_rules_recipe_due_date_reminder_description: "Every day at 09:00, the assignee of each open issue due within the next 2 days receives an email."
+  automation_rules_recipe_due_date_reminder_subject: "Reminder: #{{issue.id}} {{issue.subject}} is due on {{issue.due_date}}"
+  automation_rules_recipe_due_date_reminder_body: "Issue #{{issue.id}} \"{{issue.subject}}\" in {{project.name}} is due on {{issue.due_date}}.\n\n{{issue.url}}"
+  automation_rules_recipe_stale_issues: Flag stale issues
+  automation_rules_recipe_stale_issues_description: "Every week, open issues not updated for 90 days get a note (and the boolean custom field \"Stale\" set, when such a field exists)."
+  automation_rules_recipe_stale_issues_note: "This issue has not been updated for 90 days. Is it still relevant?"
+  automation_rules_recipe_assign_by_category: Assign new issues by category
+  automation_rules_recipe_assign_by_category_description: "New unassigned issues in a given category are assigned to a fixed user."
+  automation_rules_recipe_time_budget_exceeded: Warn when time spent exceeds the estimate
+  automation_rules_recipe_time_budget_exceeded_description: "When a time entry pushes the total time spent over the estimated hours, a note is added and the managers are added as watchers."
+  automation_rules_recipe_time_budget_exceeded_note: "Time budget exceeded: {{issue.spent_hours}} hours spent against an estimate of {{issue.estimated_hours}} hours."
+  automation_rules_execution_log: Execution log
+  automation_rules_execution_log_info: "Last %{shown} executions (the plugin keeps the last %{kept} per rule)."
+  automation_rules_no_executions: This rule has not run on any issue yet.
+  automation_rules_execution_trigger_manual: Run manually
+  automation_rules_execution_trigger_test: Test
+  automation_rules_sidebar_title: Automation

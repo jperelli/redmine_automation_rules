@@ -85,4 +85,45 @@
   </div>
 </div>
 
+<div class="automation-rule-executions">
+  <h3><%= l(:automation_rules_execution_log) %></h3>
+  <% if @executions.empty? %>
+    <p class="nodata"><%= l(:automation_rules_no_executions) %></p>
+  <% else %>
+    <p class="info"><%= l(:automation_rules_execution_log_info, shown: @executions.size, kept: AutomationRulesExecution::KEEP) %></p>
+    <table class="list automation-rule-executions-table">
+      <thead>
+        <tr>
+          <th><%= l(:field_created_on) %></th>
+          <th><%= l(:label_issue) %></th>
+          <th><%= l(:automation_rules_field_trigger) %></th>
+          <th><%= l(:automation_rules_actions) %></th>
+          <th><%= l(:automation_rules_label_error) %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @executions.each do |execution| %>
+          <tr class="<%= execution.success? ? 'automation-rule-execution-ok' : 'automation-rule-execution-error' %>">
+            <td><%= format_time(execution.created_at) %></td>
+            <td><%= execution.issue ? link_to_issue(execution.issue, subject: true, truncate: 60) : "##{execution.issue_id}" %></td>
+            <td><%= execution.trigger_label %></td>
+            <td>
+              <% if execution.applied_list.any? %>
+                <ol class="automation-rule-rows">
+                  <% execution.applied_list.each do |line| %>
+                    <li><%= line %></li>
+                  <% end %>
+                </ol>
+              <% else %>
+                —
+              <% end %>
+            </td>
+            <td><%= execution.error.present? ? content_tag(:span, execution.error, class: 'automation-rule-error') : '' %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+</div>
+
 <%= render partial: 'automation_rules/credit' %>

@@ -5,6 +5,11 @@
   <% if @project ? User.current.allowed_to?(:manage_automation_rules, @project) : User.current.admin? %>
     <%= link_to automation_rules_sprite_icon('add', l(:automation_rules_new_rule)),
                 polymorphic_path([:new, @project, :automation_rule]), class: 'icon icon-add' %>
+    <%= label_tag 'automation-rule-recipe', l(:automation_rules_new_rule_from_recipe), class: 'automation-rule-recipe-label' %>
+    <%= select_tag 'automation-rule-recipe',
+                   options_for_select([["--- #{l(:actionview_instancetag_blank_option)} ---", '']] + RedmineAutomationRules::Recipes.options),
+                   class: 'automation-rule-recipe-select',
+                   data: { url: polymorphic_path([:new, @project, :automation_rule]) } %>
   <% end %>
 </div>
 

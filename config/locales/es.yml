@@ -358,3 +358,41 @@ es:
   automation_rules_error_version_not_assignable: "la versión #%{id} no está disponible para esta petición"
   automation_rules_error_no_closed_status: el flujo de trabajo no ofrece ningún estado cerrado para esta petición
   automation_rules_error_no_open_status: el flujo de trabajo no ofrece ningún estado abierto para esta petición
+  automation_rules_operator_siblings_closed: existe y todas sus subtareas están cerradas
+  automation_rules_new_rule_from_recipe: "Nueva regla desde receta:"
+  automation_rules_recipe_prefilled: "El formulario se rellenó con la receta \"%{recipe}\". Revise los valores y ajústelos a su proyecto antes de guardar."
+  automation_rules_error_unknown_recipe: Receta desconocida.
+  automation_rules_recipe_auto_close_resolved: Cerrar automáticamente las peticiones resueltas tras 14 días
+  automation_rules_recipe_auto_close_resolved_description: "Cada noche cierra las peticiones que llevan 14 días en el estado resuelto, dejando una nota."
+  automation_rules_recipe_auto_close_resolved_note: "Cerrada automáticamente: esta petición lleva 14 días resuelta sin más comentarios."
+  automation_rules_recipe_reopen_on_reporter_note: Reabrir una petición cerrada cuando su autor añade una nota
+  automation_rules_recipe_reopen_on_reporter_note_description: "Cuando quien creó una petición cerrada la comenta, la petición se reabre para que vuelva a revisarse."
+  automation_rules_recipe_close_parent_when_subtasks_closed: Cerrar la petición padre cuando todas las subtareas están cerradas
+  automation_rules_recipe_close_parent_when_subtasks_closed_description: "Cuando se cierra una subtarea y todas las demás subtareas de su padre ya están cerradas, el padre también se cierra."
+  automation_rules_recipe_round_robin_unassigned: Asignar por turnos las peticiones nuevas sin asignar entre un grupo
+  automation_rules_recipe_round_robin_unassigned_description: "Las peticiones nuevas creadas sin asignar se reparten por turnos entre los miembros de un grupo."
+  automation_rules_recipe_start_date_on_progress: Fijar la fecha de inicio al empezar el trabajo
+  automation_rules_recipe_start_date_on_progress_description: "Cuando el estado cambia a En curso, la fecha de inicio pasa a ser hoy si estaba vacía."
+  automation_rules_recipe_finish_on_close: Fijar % realizado y fecha fin al cerrar
+  automation_rules_recipe_finish_on_close_description: "Cuando se cierra una petición, el % realizado pasa a 100 y la fecha fin pasa a ser hoy si estaba vacía."
+  automation_rules_recipe_escalate_unassigned_high_priority: Escalar peticiones de prioridad alta sin asignar
+  automation_rules_recipe_escalate_unassigned_high_priority_description: "Cada hora, las peticiones de prioridad alta creadas hace más de 4 horas y aún sin asignar reciben a los responsables como seguidores y una nota."
+  automation_rules_recipe_escalate_unassigned_high_priority_note: "Escalada automáticamente: esta petición de prioridad alta lleva más de 4 horas sin asignar."
+  automation_rules_recipe_due_date_reminder: Recordar a los asignados las peticiones que vencen pronto
+  automation_rules_recipe_due_date_reminder_description: "Cada día a las 09:00, la persona asignada a cada petición abierta que vence en los próximos 2 días recibe un correo."
+  automation_rules_recipe_due_date_reminder_subject: "Recordatorio: #{{issue.id}} {{issue.subject}} vence el {{issue.due_date}}"
+  automation_rules_recipe_due_date_reminder_body: "La petición #{{issue.id}} \"{{issue.subject}}\" de {{project.name}} vence el {{issue.due_date}}.\n\n{{issue.url}}"
+  automation_rules_recipe_stale_issues: Marcar peticiones estancadas
+  automation_rules_recipe_stale_issues_description: "Cada semana, las peticiones abiertas sin actualizar durante 90 días reciben una nota (y el campo personalizado booleano \"Stale\", si existe, se marca)."
+  automation_rules_recipe_stale_issues_note: "Esta petición no se ha actualizado en 90 días. ¿Sigue siendo relevante?"
+  automation_rules_recipe_assign_by_category: Asignar peticiones nuevas según la categoría
+  automation_rules_recipe_assign_by_category_description: "Las peticiones nuevas sin asignar de una categoría dada se asignan a un usuario fijo."
+  automation_rules_recipe_time_budget_exceeded: Avisar cuando el tiempo dedicado supera la estimación
+  automation_rules_recipe_time_budget_exceeded_description: "Cuando una entrada de tiempo hace que el total dedicado supere las horas estimadas, se añade una nota y los responsables pasan a ser seguidores."
+  automation_rules_recipe_time_budget_exceeded_note: "Presupuesto de tiempo superado: {{issue.spent_hours}} horas dedicadas frente a una estimación de {{issue.estimated_hours}} horas."
+  automation_rules_execution_log: Registro de ejecuciones
+  automation_rules_execution_log_info: "Últimas %{shown} ejecuciones (el plugin conserva las últimas %{kept} por regla)."
+  automation_rules_no_executions: Esta regla aún no se ha ejecutado sobre ninguna petición.
+  automation_rules_execution_trigger_manual: Ejecución manual
+  automation_rules_execution_trigger_test: Prueba
+  automation_rules_sidebar_title: Automatización

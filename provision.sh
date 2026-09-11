@@ -101,6 +101,19 @@ docker compose run --rm -e REDMINE_LANG=en redmine bin/rails runner -e developme
     end
   end
 
-  puts "Seeded #{project.identifier}: #{project.members.count} members, #{project.issues.count} issues"
+  # a few rules built from the recipes, so the list, the scheduler and the
+  # execution log have something to show
+  if AutomationRule.where(project: project).empty?
+    User.current = admin
+    %w[finish_on_close close_parent_when_subtasks_closed auto_close_resolved time_budget_exceeded].each do |key|
+      rule = AutomationRule.new(project: project, author: admin)
+      rule.apply_recipe(key, admin)
+      rule.save!
+    end
+    User.current = nil
+  end
+
+  puts "Seeded #{project.identifier}: #{project.members.count} members, #{project.issues.count} issues, " \
+       "#{AutomationRule.where(project: project).count} rules"
 RUBY
 )"

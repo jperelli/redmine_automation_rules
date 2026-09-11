@@ -64,10 +64,17 @@ module RedmineAutomationRules
       result.error = e.is_a?(ActionError) ? e.message : "#{e.class}: #{e.message}"
       result
     ensure
-      rule.record_run!(result&.error) if result&.matched && !dry_run?
+      log_execution(result) if result&.matched && !dry_run?
     end
 
     private
+
+    def log_execution(result)
+      rule.record_run!(result.error)
+      AutomationRulesExecution.record!(result)
+    rescue StandardError => e
+      Rails.logger.error("[automation_rules] rule ##{rule.id}: could not log the execution: #{e.class}: #{e.message}")
+    end
 
     def evaluate_conditions(result)
       rule.condition_objects.each do |condition|

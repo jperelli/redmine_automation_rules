@@ -10,6 +10,7 @@ class AutomationRule < (defined?(ApplicationRecord) ? ApplicationRecord : Active
 
   belongs_to :project, optional: true
   belongs_to :author, class_name: 'User', optional: true
+  has_many :executions, class_name: 'AutomationRulesExecution', dependent: :delete_all
 
   # Text columns holding JSON, so the same schema works on SQLite, MySQL and PostgreSQL.
   attribute :trigger_options, :json, default: -> { {} }
@@ -239,6 +240,16 @@ class AutomationRule < (defined?(ApplicationRecord) ? ApplicationRecord : Active
     self.last_error = error&.to_s&.truncate(2000)
     self.runs_count += 1 unless error
     save(validate: false)
+  end
+
+  # Pre-fills a new rule from one of the built-in recipes (see Recipes);
+  # returns nil for an unknown recipe key.
+  def apply_recipe(key, user = author)
+    attrs = RedmineAutomationRules::Recipes.build(key, project: project, user: user)
+    return nil unless attrs
+
+    self.attributes = attrs
+    self
   end
 
   # Closes one scheduled occurrence: the next run is computed from +now+, so
